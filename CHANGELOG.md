@@ -1,5 +1,28 @@
 # 正式版本更新记录
 
+## v1.47.0 · 2026-10-09
+
+本次更新
+• 新增：插件独立首页，查看激活状态、适配版本和检测详情，支持检查更新、捐赠及 GitHub / Telegram 快捷入口
+• 新增：一键强行停止并启动 Soul，需授予 Root 权限
+• 新增：显示桌面图标开关，默认隐藏，可从 LSPosed 打开插件首页
+
+适配环境
+Soul：4.88.0、6.37.0、6.38.0（本次首页及重启操作在 6.38.0 环境验证）
+LSPosed：API 102
+如需适配其他版本, 捐赠任意金额后私聊 @JuanZoranNewSoulReleaseBot 配合适配
+
+下载地址
+蓝奏云：https://wwbnj.lanzoux.com/b007utki2d
+提取码：3gin
+GitHub：https://github.com/JuanZoran/NewSoul-Releases/releases/latest
+
+安装说明
+覆盖安装公开版后，按需重启 Soul
+
+反馈说明
+反馈请私聊 @JuanZoranNewSoulReleaseBot，并附上日志与截图。
+
 ## v1.46.5 · 2026-10-08
 
 本次更新
