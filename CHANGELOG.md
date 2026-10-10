@@ -1,5 +1,34 @@
 # 正式版本更新记录
 
+## v1.47.1 · 2026-10-10
+
+本次更新
+• 调整：公开版包名改为 io.github.juanzoran.newsoul，已通过 LSPosed 仓库申请
+• 优化：首页状态刷新与检测详情，改善返回页面后的检测显示
+• 优化：语音库异常恢复与空间检查，支持处理未完成文件
+• 修复：注册天数筛选、IP 属地查询及自动签到、隐身操作在切换账号或关闭开关后的请求与状态处理
+• 优化：聊天复读与帖子分享兼容性
+
+适配环境
+Soul：4.88.0、6.37.0、6.38.0（本次新包名加载与启动在 6.38.0 环境验证）
+LSPosed：API 102
+如需适配其他版本, 捐赠任意金额后私聊 @JuanZoranNewSoulReleaseBot 配合适配
+
+下载地址
+蓝奏云：https://wwbnj.lanzoux.com/b007utki2d
+提取码：3gin
+GitHub：https://github.com/JuanZoran/NewSoul-Releases/releases/latest
+LSPosed：https://github.com/Xposed-Modules-Repo/io.github.juanzoran.newsoul/releases/latest
+
+安装说明
+旧包名无法覆盖升级，需安装新公开版并在 LSPosed 中启用、勾选 Soul
+关闭旧版及内部版模块，重启 Soul
+保留 Soul 应用及数据可沿用原插件配置
+后续可在 LSPosed 仓库检测更新
+
+反馈说明
+反馈请私聊 @JuanZoranNewSoulReleaseBot，并附上日志与截图
+
 ## v1.47.0 · 2026-10-09
 
 本次更新
