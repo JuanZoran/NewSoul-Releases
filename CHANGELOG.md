@@ -1,5 +1,29 @@
 # 正式版本更新记录
 
+## v1.48.0 · 2026-10-11
+
+本次更新
+• 新增：签到多选面板，支持 Soul币签到、星游乐场签到、星域宝藏／摘星试炼／装扮祈愿每日免费单抽及活跃度宝箱领取，各项可独立开启，抽中完整头像时显示奖励提示
+• 优化：自定义时间格式直接预览, 无需二级弹窗
+
+适配环境
+Soul：4.88.0、6.37.0、6.38.0（新增签到与免费抽奖功能在 6.38.0 环境验证）
+LSPosed：API 102
+如需适配其他版本, 捐赠任意金额后私聊 @JuanZoranNewSoulReleaseBot 配合适配
+
+下载地址
+蓝奏云：https://wwbnj.lanzoux.com/b007utki2d
+提取码：3gin
+GitHub：https://github.com/JuanZoran/NewSoul-Releases/releases/latest
+LSPosed：https://github.com/Xposed-Modules-Repo/io.github.juanzoran.newsoul/releases/latest
+
+安装说明
+覆盖安装公开版后，重启 Soul
+后续可在 LSPosed 仓库检测更新
+
+反馈说明
+反馈请私聊 @JuanZoranNewSoulReleaseBot，并附上日志与截图
+
 ## v1.47.1 · 2026-10-10
 
 本次更新
