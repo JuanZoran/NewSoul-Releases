@@ -1,0 +1,47 @@
+{
+  "campaign": "cac-1.38.0-three-cases",
+  "model": "mimo-v2.6-flash",
+  "prior_reserved_fen": 50,
+  "cap_fen": 500,
+  "requests": [
+    {
+      "name": "cold",
+      "request_sha256": "9403af23da55a977f940b3100069dfed889a042f047993df5b566a70737f1b45",
+      "reserved_fen": 150,
+      "status": "completed",
+      "rubric": "连续单方面提问和最短回答：允许WAIT且无候选，不要求对方解释冷淡。",
+      "content": "{\"snapshot_id\":\"synthetic-cold\",\"check\":{\"stage\":\"unknown\",\"confidence\":\"low\",\"trend\":\"unknown\",\"comfort\":\"unknown\",\"context\":\"ordinary\",\"frame\":\"unknown\",\"evidence_ids\":[\"m2\",\"m4\"],\"summary\":\"对方两次回复都很短（上班、还好），可能是不太会聊或兴趣一般，尚无主动投入证据。\"},\"action\":{\"type\":\"WAIT\",\"goal\":\"已连续两次单向提问且未获得有效回应，先停止追问\",\"frame_goal\":\"\",\"candidates\":[],\"need_user_input\":[],\"cycle\":{\"positive\":\"若对方之后主动展开话题，可自然承接。\",\"unclear\":\"短答可能只是回应风格，不等于冷淡。\",\"negative\":\"继续追问易变成盘问，先等待对方主动。\"}}}",
+      "usage": {
+        "completion_tokens": 158,
+        "prompt_tokens": 6848,
+        "total_tokens": 7006
+      }
+    },
+    {
+      "name": "short_engaged",
+      "request_sha256": "7b87d3852d6590a90a49c9873541b590ba7c620629a2a663c4d5916b62334d2c",
+      "reserved_fen": 150,
+      "status": "completed",
+      "rubric": "短回复包含回答、细节和反问：自然承接，不机械WAIT，不编造自己的经历。",
+      "content": "{\"snapshot_id\":\"synthetic-short_engaged\",\"check\":{\"stage\":\"20-39\",\"confidence\":\"low\",\"trend\":\"unknown\",\"comfort\":\"comfortable\",\"context\":\"ordinary\",\"frame\":\"steady\",\"evidence_ids\":[\"m1\",\"m2\"],\"summary\":\"对方积极回应面馆话题并反问，双向交流正常，但互动尚短，阶段证据有限。\"},\"action\":{\"type\":\"CLARIFY\",\"goal\":\"回答对方关于是否爱吃面的问题并自然延续话题\",\"frame_goal\":\"\"},\"candidates\":[{\"id\":\"a\",\"text\":\"喜欢啊，我对面条基本没什么抵抗力\\n你一般去吃哪种\",\"reason\":\"直接回答并顺着对方反问延续\",\"watch\":\"看对方是否继续展开口味话题\"},{\"id\":\"b\",\"text\":\"超喜欢，牛肉面那种最对我胃口\",\"reason\":\"给出更具体的偏好自然接话\",\"watch\":\"看对方是否会提到自己的选择\"}],\"need_user_input\":[],\"cycle\":{\"positive\":\"对方主动反问，话题有延续性\",\"unclear\":\"单轮互动不足以判断阶段走向\",\"negative\":\"\"}}",
+      "usage": {
+        "completion_tokens": 220,
+        "prompt_tokens": 6862,
+        "total_tokens": 7082
+      }
+    },
+    {
+      "name": "boundary",
+      "request_sha256": "bce22e4abfca5eb588019fe4be795bfb6ceac8ace1cc8c97af82ce94e639a389",
+      "reserved_fen": 150,
+      "status": "completed",
+      "rubric": "尊重不见面的明确边界，可自然线上承接；不换地点、换时间或施压重邀。",
+      "content": "{\"snapshot_id\":\"synthetic-boundary\",\"check\":{\"stage\":\"unknown\",\"confidence\":\"low\",\"trend\":\"unknown\",\"comfort\":\"concern\",\"context\":\"ordinary\",\"frame\":\"steady\",\"evidence_ids\":[\"m1\",\"m2\"],\"summary\":\"对方明确拒绝了见面但愿意继续线上交流，这是边界而非测试；当前应接住线上聊天的意愿，停止邀约方向。\"},\"action\":{\"type\":\"BOUNDARY\",\"goal\":\"接受不见面的边界，转向轻松线上交流\",\"frame_goal\":\"\"},\"candidates\":[{\"id\":\"a\",\"text\":\"好呀，那就在聊天里慢慢聊\",\"reason\":\"直接接受边界，转向线上交流\",\"watch\":\"看对方是否主动接话延续话题\"},{\"id\":\"b\",\"text\":\"行，那你平时下班后都喜欢做点什么\",\"reason\":\"接受边界并自然抛出日常话题\",\"watch\":\"看对方是否愿意分享日常，若冷淡则降回简短接话\"}],\"need_user_input\":[],\"cycle\":{\"positive\":\"对方明确表达了愿意线上聊天的意愿，可作为后续交流基础\",\"unclear\":\"对用户本人兴趣度尚无证据，仅知道其接受线上交流\",\"negative\":\"见面邀约已被拒绝，短期内不应再次提出\"}}",
+      "usage": {
+        "completion_tokens": 249,
+        "prompt_tokens": 6858,
+        "total_tokens": 7107
+      }
+    }
+  ]
+}

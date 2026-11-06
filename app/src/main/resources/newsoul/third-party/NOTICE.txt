@@ -1,0 +1,32 @@
+New Soul — Copyright (C) 2026 JuanZoran
+GNU General Public License version 3 only.
+Corresponding source: https://github.com/JuanZoran/NewSoul-Releases
+
+Third-party dependencies
+
+DexKit 2.0.7 — Copyright LuckyPray and contributors.
+Java/Kotlin API: Apache License 2.0. Native Core: LGPL 3.0.
+Unmodified official Maven AAR; the native library remains a separate shared object.
+Source for this exact version: https://github.com/LuckyPray/DexKit/tree/2.0.7
+Source archive: https://github.com/LuckyPray/DexKit/archive/refs/tags/2.0.7.tar.gz
+Artifact: https://repo.maven.apache.org/maven2/org/luckypray/dexkit/2.0.7/
+To replace/relink the native library, rebuild the module with a compatible libdexkit.so
+in the relevant ABI directory. No restriction on reverse engineering for debugging
+modifications to this library is imposed by this notice.
+
+Runtime dependencies:
+- libxposed service/interface 102.0.0 — libxposed contributors, Apache License 2.0.
+  https://github.com/libxposed/service/tree/102.0.0
+- Kotlin stdlib 1.9.24 — JetBrains and contributors, Apache License 2.0.
+  https://github.com/JetBrains/kotlin/tree/v1.9.24
+- FlatBuffers Java 23.5.26 — Google and contributors, Apache License 2.0.
+  https://github.com/google/flatbuffers/tree/v23.5.26
+- JetBrains annotations 13.0 — JetBrains, Apache License 2.0.
+  https://repo.maven.apache.org/maven2/org/jetbrains/annotations/13.0/
+- DexKit upstream statically links its C++ runtime; its POM declares
+  dev.rikka.ndk.thirdparty:cxx:1.2.0 (LLVM libc++). No additional shared C++
+  runtime is loaded by New Soul. Upstream notices and sources are available at
+  https://github.com/RikkaW/ndk-cxx and within the DexKit source archive.
+
+The Apache, LGPL and GPL license texts accompany this notice.
+Pinned dependency digests and SDK build instructions are in the project repository.

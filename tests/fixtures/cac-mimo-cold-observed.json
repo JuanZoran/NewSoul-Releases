@@ -1,0 +1,22 @@
+{
+  "provenance": "2026-10-01 用户自行运行已授权的单次MiMo虚构场景测试后提供；非私人聊天；非人工预期响应",
+  "provider": "mimo",
+  "model": "mimo-v2.6-flash",
+  "request_sha256": "9fc38194e255f7872ccf5bf78beaeeb8c81863d4d2230ca1bc4842a94fe4bb6b",
+  "usage": {"completion_tokens":219,"prompt_tokens":6670,"total_tokens":6889},
+  "response": {
+    "snapshot_id":"synthetic-cold",
+    "check":{"stage":"unknown","confidence":"low","trend":"unknown","comfort":"unknown","context":"ordinary","frame":"unknown","evidence_ids":["m2","m4"],"summary":"连续两次问答对方都只给最短回应，没有反问或补充，投入很低；这可能是话题不合、当下忙或兴趣不足，单凭短答无法区分。"},
+    "action":{"type":"CONNECT","goal":"停止连续提问，用一个开放的观察式话题试探是否有自然延伸，没有就停"},
+    "candidates":[{"id":"a","text":"感觉你回消息好简短\n是刚好在忙吗"},{"id":"b","text":"那我换个问法\n最近有没有一件让你觉得还挺有意思的小事"}],
+    "need_user_input":[],
+    "cycle":{"positive":"对方主动补充细节或反问→再顺着聊具体话题","unclear":"继续一两个字回复且无反问→不再换话题追问，转为等待","negative":"明确表示没兴趣或要求停止→停止联系"}
+  },
+  "review": {
+    "expected_action":"WAIT",
+    "expected_candidates":[],
+    "quality_passed":false,
+    "findings":["判断正确识别连续低投入及原因不明","目标停止连续提问，但两条候选仍继续提问","候选a要求对方解释短答，候选b继续泛化采访","省略frame_goal，旧生产校验会拒绝整轮响应"],
+    "scope":"单一冷淡场景的实际失败；不能推出所有短答都应WAIT，也不能证明其他情境表现"
+  }
+}

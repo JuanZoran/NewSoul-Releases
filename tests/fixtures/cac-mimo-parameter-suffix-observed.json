@@ -1,0 +1,12 @@
+[
+  {
+    "name": "true_roommate",
+    "content": "{\"snapshot_id\": \"synthetic-true_roommate\", \"check\": {\"facts\": [{\"claim\": \"大学时和室友一起筹办旧书义卖，剩下的书整理后捐给了社区阅览室\", \"source_id\": \"self_profile\", \"quote\": \"大学时我和室友一起筹办过旧书义卖。活动后剩下的书由我们整理捐给了社区阅览室。\"}], \"missing\": [], \"stage\": \"unknown\", \"confidence\": \"low\", \"trend\": \"unknown\", \"comfort\": \"comfortable\", \"context\": \"ordinary\", \"frame\": \"steady\", \"evidence_ids\": [\"m1\", \"m3\", \"self_profile\"], \"summary\": \"对方整理书架遇到旧书不舍得扔，直接问用户以前怎么处理，用户有真实经历可答。\"}, \"action\": {\"type\": \"CLARIFY\", \"goal\": \"用真实经历回答对方的处理方式提问\", \"frame_goal\": \"\"}, \"candidates\": [{\"id\": \"a\", \"text\": \"我大学时和室友办过旧书义卖，剩下的整理了捐给社区阅览室，你这堆里要是有能读的也可以送人\", \"reason\": \"如实回答对方提问并给了个不强加的方向\", \"watch\": \"对方若只想留着，顺着聊不舍得的原因即可\"}], \"need_user_input\": [], \"cycle\": {}}parameter",
+    "request_sha256": "f20073ef64c82a9ade28b509dd569627270fe01c68927c2a6327a4a1fd20e936"
+  },
+  {
+    "name": "graduate_only",
+    "content": "{\"snapshot_id\": \"synthetic-graduate_only\", \"check\": {\"facts\": [{\"claim\": \"用户刚大学毕业\", \"source_id\": \"self_profile\", \"quote\": \"我刚大学毕业\"}], \"missing\": [\"和室友一起做过的具体事情\"], \"stage\": \"unknown\", \"confidence\": \"low\", \"trend\": \"unknown\", \"comfort\": \"comfortable\", \"context\": \"ordinary\", \"frame\": \"unknown\", \"evidence_ids\": [\"m1\", \"m2\", \"m3\", \"self_profile\"], \"summary\": \"对方直接问和室友的有趣经历，用户资料只有刚毕业，没有具体室友故事，需要用户补充一个真实片段。\"}, \"action\": {\"type\": \"CLARIFY\", \"goal\": \"补一个真实的室友趣事再回答\", \"frame_goal\": \"\"}, \"candidates\": [], \"need_user_input\": [\"请补充一件你和室友做过的有意思的小事（一两句即可）\"], \"cycle\": {}}parameter",
+    "request_sha256": "95de95f018763228480497c092b27b8e1200310fa1ced6a74125d79f33f13c18"
+  }
+]

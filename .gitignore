@@ -1,0 +1,11 @@
+build/
+**/build/
+.gradle/
+local.properties
+*.jks
+*.p12
+*.keystore
+*.pass
+*.log
+__pycache__/
+*.py[cod]

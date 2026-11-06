@@ -1,0 +1,378 @@
+{
+  "common": [
+    {
+      "class": "cn.soulapp.android.client.component.middle.platform.model.api.account.FuncSetting",
+      "fields": [
+        ["isTeenageMode", "Z"],
+        ["needTeenageExam", "Z"],
+        ["isPopTeenWindow", "Z"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.imlib.j0",
+      "methods": [
+        ["g", "()Ljava/lang/String;"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.imlib.Conversation",
+      "methods": [
+        ["getSessionId", "()Ljava/lang/String;"],
+        ["getChatType", "()I"],
+        ["getToUserId", "()Ljava/lang/String;"],
+        ["ackMsgRead", "(Lcn/soulapp/imlib/msg/ImMessage;)V"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.imlib.msg.ImMessage",
+      "methods": [
+        ["getFrom", "()Ljava/lang/String;"],
+        ["getTo", "()Ljava/lang/String;"],
+        ["getMsgId", "()Ljava/lang/String;"],
+        ["getMsgType", "()I"],
+        ["getChatMessage", "()Lcn/soulapp/imlib/msg/chat/ChatMessage;"],
+        ["isAnonymityChat", "()Z"],
+        ["getIsAck", "()I"],
+        ["getServerTime", "()J"],
+        ["getLocalTime", "()J"],
+        ["getTransCmd", "()Lcn/soulapp/imlib/msg/transcmd/TransCmdMsg;"],
+        ["getMsgStatus", "()I"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.component.chat.fragment.ConversationFragment",
+      "fields": [
+        ["L", "Ljava/lang/String;"],
+        ["O", "Lcn/soulapp/android/client/component/middle/platform/model/api/user/ImUserBean;"],
+        ["Q", "Lcn/soulapp/android/component/chat/utils/y4;"]
+      ],
+      "methods": [
+        ["onResume", "()V"],
+        ["onPause", "()V"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.component.chat.utils.u0",
+      "methods": [
+        ["k", "(Lcn/soulapp/android/component/chat/fragment/ConversationFragment;Landroid/view/View;Lcn/soulapp/imlib/msg/ImMessage;)Ljava/util/List;"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.component.chat.utils.n6",
+      "fields": [
+        ["a", "Lcn/soulapp/android/component/chat/utils/n6;"]
+      ],
+      "methods": [
+        ["g", "(Lcn/soulapp/android/square/post/bean/Post;Ljava/lang/String;)V"],
+        ["h", "(Lcn/soulapp/imlib/msg/ImMessage;)V"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.imlib.utils.j",
+      "methods": [
+        ["b", "(Ljava/lang/Object;)Ljava/lang/String;"],
+        ["d", "(Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.component.square.main.squarepost.SquareAdapter",
+      "methods": [
+        ["onAttachedToRecyclerView", "(Landroidx/recyclerview/widget/RecyclerView;)V"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.square.post.bean.Post",
+      "fields": [
+        ["authorIdEcpt", "Ljava/lang/String;"],
+        ["createTime", "J"],
+        ["content", "Ljava/lang/String;"],
+        ["title", "Ljava/lang/String;"],
+        ["tags", "Ljava/util/ArrayList;"],
+        ["superVIP", "Z"],
+        ["globalViewModelV1", "Lcn/soulapp/android/square/post/bean/Post$GlobalViewModelV1;"]
+      ]
+    },
+    {
+      "class": "com.chad.library.adapter.base.BaseQuickAdapter",
+      "fields": [
+        ["data", "Ljava/util/List;"]
+      ],
+      "methods": [
+        ["setList", "(Ljava/util/Collection;)V"],
+        ["addData", "(ILjava/lang/Object;)V"],
+        ["addData", "(ILjava/util/Collection;)V"],
+        ["addData", "(Ljava/lang/Object;)V"],
+        ["addData", "(Ljava/util/Collection;)V"],
+        ["setNewInstance", "(Ljava/util/List;)V"],
+        ["getHeaderLayoutCount", "()I"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.component.home.api.user.user.bean.UserFollowCount",
+      "fields": [
+        ["followNum", "I"],
+        ["beFollowNum", "I"],
+        ["beViewNum", "I"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.component.home.meta.view.MetaFollowFansContainerView",
+      "fields": [
+        ["k", "I"],
+        ["b", "Lcn/soulapp/android/component/home/api/user/user/bean/UserFollowCount;"]
+      ],
+      "methods": [
+        ["w", "(Lcom/soul/component/componentlib/service/user/bean/User;Lcn/soulapp/android/component/home/databinding/CUsrMetaFollowFansContainerBinding;)V"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.component.home.revision.RevisionProfileProvider",
+      "fields": [
+        ["b", "I"],
+        ["d", "Lcn/soulapp/android/component/home/api/user/user/bean/UserFollowCount;"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.component.home.databinding.CUsrLayoutRevisionProfileBinding",
+      "fields": [
+        ["o", "Landroid/widget/TextView;"],
+        ["q", "Landroid/widget/TextView;"],
+        ["g0", "Landroid/widget/TextView;"],
+        ["h0", "Landroid/widget/TextView;"],
+        ["V", "Landroid/widget/TextView;"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.component.home.meta.me2.userinfo.UserInfoProvider",
+      "fields": [
+        ["b", "I"]
+      ],
+      "methods": [
+        ["t0", "(Lcom/soul/component/componentlib/service/user/bean/User;Lcn/soulapp/android/component/home/databinding/CUsrLayoutMeInfoNewBinding;)V"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.component.home.me.UserHomeHeaderHelper",
+      "fields": [
+        ["M", "I"],
+        ["j", "Landroid/widget/TextView;"],
+        ["l", "Landroid/widget/TextView;"],
+        ["n", "Landroid/widget/TextView;"],
+        ["o", "Landroid/widget/TextView;"],
+        ["q", "Landroid/widget/TextView;"],
+        ["r", "Landroid/widget/TextView;"]
+      ],
+      "methods": [
+        ["setUserFollowData", "(Lcn/soulapp/android/component/home/api/user/user/bean/UserFollowCount;)V"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.component.square.bean.SquareMainTab",
+      "methods": [
+        ["isSameCityTab", "()Z"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.component.publish.ui.position.b",
+      "methods": [
+        ["A", "()V"],
+        ["F", "(Lcn/soulapp/android/lib/common/location/bean/Poi;)V"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.lib.location.bdmap.BDMapLocationServiceImpl",
+      "methods": [
+        ["getLastLocation", "()Lcn/soulapp/android/lib/location/model/LocationData;"],
+        ["getInnerLastLocation", "()Lcn/soulapp/android/lib/location/model/LocationData;"],
+        ["getMLastLocation", "()Lcn/soulapp/android/lib/location/model/LocationData;"],
+        ["getLocationWithCache", "(Lcn/soulapp/android/lib/location/LocationListener;)V"],
+        ["stopLocation", "(Lcn/soulapp/android/lib/location/LocationListener;)V"],
+        ["callback2Listener", "(ILcn/soulapp/android/lib/location/model/LocationData;)V"],
+        ["startLocation", "(Lcn/soulapp/android/lib/location/LocationListener;)V"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.lib.lbs.bd.SoulBaiduLocationClient",
+      "methods": [
+        ["getLastLocation", "()Lcn/soulapp/android/lib/location/model/LocationData;"],
+        ["getInnerLastLocation", "()Lcn/soulapp/android/lib/location/model/LocationData;"],
+        ["getMLastLocation", "()Lcn/soulapp/android/lib/location/model/LocationData;"],
+        ["getLocationWithCache", "(Lcn/soulapp/android/lib/location/LocationListener;)V"],
+        ["stopLocation", "(Lcn/soulapp/android/lib/location/LocationListener;)V"],
+        ["callback2Listener", "(ILcn/soulapp/android/lib/location/model/LocationData;)V"],
+        ["startLocation", "(Lcn/soulapp/android/lib/location/model/LocationOption;Lcn/soulapp/android/lib/location/LocationListener;)V"],
+        ["startLocation", "(Lcn/soulapp/android/lib/location/model/LocationOption;Lcn/soulapp/android/lib/location/LocationListener;Z)V"],
+        ["callbackCachedLocation", "(Lcn/soulapp/android/lib/location/LocationListener;)V"]
+      ]
+    },
+    {
+      "class": "cn.android.lib.soul_view.switchcompat.SoulSwitchCompat",
+      "methods": [
+        ["<init>", "(Landroid/content/Context;)V"],
+        ["<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V"],
+        ["<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;I)V"],
+        ["setCheckedImmediatelyNoEvent", "(Z)V"],
+        ["setChecked", "(Z)V"],
+        ["setTintColor", "(I)V"],
+        ["setOnCheckedChangeListener", "(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V"]
+      ]
+    },
+    {
+      "class": "cn.soulapp.android.component.chat.inputmenu.BaseMediaMenu",
+      "methods": [
+        ["A", "()Z"]
+      ]
+    },
+    {
+      "class": "jb.e",
+      "fields": [
+        ["a", "Lfa/a;"],
+        ["b", "Lcn/soulapp/android/ad/core/services/plaforms/listener/SoulAdRequestListener;"],
+        ["e", "Ljava/lang/ref/WeakReference;"]
+      ],
+      "methods": [
+        ["loadAds", "()V"]
+      ]
+    },
+    {
+      "class": "mb.d",
+      "fields": [
+        ["a", "Lfa/a;"],
+        ["c", "Lcn/soulapp/android/ad/core/services/plaforms/listener/SoulAdRequestListener;"],
+        ["b", "Ljava/lang/ref/WeakReference;"]
+      ],
+      "methods": [
+        ["loadAds", "()V"]
+      ]
+    },
+    {
+      "class": "lb.h",
+      "fields": [
+        ["b", "Lfa/a;"],
+        ["c", "Lcn/soulapp/android/ad/core/services/plaforms/listener/SoulAdRewardLoaderListener;"],
+        ["a", "Ljava/lang/ref/WeakReference;"]
+      ],
+      "methods": [
+        ["loadAds", "()V"]
+      ]
+    }
+  ],
+  "hosts": {
+    "6.38.0/26092202": [
+      {
+        "class": "cn.soulapp.android.component.home.revision.RevisionProfileProvider",
+        "methods": [
+          ["T1", "(Lcom/soul/component/componentlib/service/user/bean/User;Lcn/soulapp/android/component/home/revision/RevisionProfileProvider$ViewHolder;)V"],
+          ["R1", "(Lcom/soul/component/componentlib/service/user/bean/User;Lcn/soulapp/android/component/home/revision/RevisionProfileProvider$ViewHolder;)V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.chat.ConversationActivity",
+        "methods": [
+          ["y", "()Landroidx/fragment/app/Fragment;"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.chat.fragment.ConversationFragment",
+        "methods": [
+          ["ac", "(Landroid/view/View;Lcn/soulapp/imlib/msg/ImMessage;I)V"],
+          ["P8", "()V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.client.component.middle.platform.utils.m2",
+        "methods": [
+          ["e", "(I)Ljava/lang/String;"],
+          ["f", "(I)Ljava/lang/String;"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.square.utils.h2",
+        "methods": [
+          ["b", "(Ljava/lang/String;Landroid/content/Context;JZ)V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.square.utils.ImageDownloader",
+        "methods": [
+          ["f", "(Ljava/lang/String;ZZLcn/soulapp/android/square/utils/ImageMarkProcessor;Lcn/soulapp/android/square/utils/b;)V"]
+        ]
+      },
+      {
+        "class": "ty.w",
+        "methods": [
+          ["d", "()Lty/w;"],
+          ["k", "(Lxy/a;Lcn/soulapp/android/net/winter/api/INetCallBack;)Lokhttp3/Call;"]
+        ]
+      },
+      {
+        "class": "xy.a",
+        "methods": [
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;)V"],
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;JLokhttp3/m;Ljava/util/Map;)V"],
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V"],
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;Lokhttp3/m;Ljava/lang/String;)V"],
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;Lokhttp3/m;Ljava/util/Map;)V"]
+        ]
+      }
+    ],
+    "6.39.0/26092904": [
+      {
+        "class": "cn.soulapp.android.component.home.revision.RevisionProfileProvider",
+        "methods": [
+          ["V1", "(Lcom/soul/component/componentlib/service/user/bean/User;Lcn/soulapp/android/component/home/revision/RevisionProfileProvider$ViewHolder;)V"],
+          ["T1", "(Lcom/soul/component/componentlib/service/user/bean/User;Lcn/soulapp/android/component/home/revision/RevisionProfileProvider$ViewHolder;)V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.chat.ConversationActivity",
+        "methods": [
+          ["z", "()Landroidx/fragment/app/Fragment;"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.chat.fragment.ConversationFragment",
+        "methods": [
+          ["hc", "(Landroid/view/View;Lcn/soulapp/imlib/msg/ImMessage;I)V"],
+          ["T8", "()V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.client.component.middle.platform.utils.r1",
+        "methods": [
+          ["e", "(I)Ljava/lang/String;"],
+          ["f", "(I)Ljava/lang/String;"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.square.utils.l2",
+        "methods": [
+          ["b", "(Ljava/lang/String;Landroid/content/Context;JZ)V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.square.utils.ImageDownloader",
+        "methods": [
+          ["p", "(Ljava/lang/String;ZZLcn/soulapp/android/square/utils/ImageMarkProcessor;Lcn/soulapp/android/square/utils/b;)V"]
+        ]
+      },
+      {
+        "class": "vy.w",
+        "methods": [
+          ["d", "()Lvy/w;"],
+          ["k", "(Lzy/a;Lcn/soulapp/android/net/winter/api/INetCallBack;)Lokhttp3/Call;"]
+        ]
+      },
+      {
+        "class": "zy.a",
+        "methods": [
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;)V"],
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;JLokhttp3/m;Ljava/util/Map;)V"],
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V"],
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;Lokhttp3/m;Ljava/lang/String;)V"],
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;Lokhttp3/m;Ljava/util/Map;)V"]
+        ]
+      }
+    ]
+  }
+}

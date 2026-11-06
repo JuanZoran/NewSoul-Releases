@@ -1,0 +1,61 @@
+{
+  "campaign": "cac-1.38.1-three-cases",
+  "model": "mimo-v2.6-flash",
+  "prior_reserved_fen": 50,
+  "cap_fen": 500,
+  "requests": [
+    {
+      "name": "cold",
+      "request_sha256": "126ae8fec630aebbcd1fc41353141ffd4768abc3f7fdaa5126f1448e94b09dfb",
+      "reserved_fen": 150,
+      "status": "completed",
+      "rubric": "连续单方面提问和最短回答：允许WAIT且无候选，不要求对方解释冷淡。",
+      "content": "{\"snapshot_id\":\"synthetic-cold\",\"check\":{\"stage\":\"unknown\",\"confidence\":\"low\",\"trend\":\"unknown\",\"comfort\":\"unknown\",\"context\":\"ordinary\",\"frame\":\"unknown\",\"evidence_ids\":[\"m2\",\"m4\"],\"summary\":\"对方两轮都只回两三个字，没有主动信息，也无待答问题；继续追问大概率还是短答，原因未知\"},\"action\":{\"type\":\"WAIT\",\"goal\":\"暂停单向提问，等对方给出更多内容\",\"frame_goal\":\"\"},\"candidates\":[],\"need_user_input\":[],\"cycle\":{\"positive\":\"\",\"unclear\":\"对方回复极短，可能是忙、话题不合或兴趣低，无法区分\",\"negative\":\"连续两次提问只得到最短回应，不再换问题救场\"}}",
+      "usage": {
+        "completion_tokens": 152,
+        "prompt_tokens": 5928,
+        "total_tokens": 6080
+      }
+    },
+    {
+      "name": "short_engaged",
+      "request_sha256": "a7129005b4d0982b141b0fc4f3826af09e717cf9f3c62c7b14a1b887a95510e4",
+      "reserved_fen": 150,
+      "status": "completed",
+      "rubric": "短回复包含回答、细节和反问：自然承接，不机械WAIT，不编造自己的经历。",
+      "content": "{\"snapshot_id\": \"synthetic-short_engaged\", \"check\": {\"stage\": \"20-39\", \"confidence\": \"medium\", \"trend\": \"unknown\", \"comfort\": \"comfortable\", \"context\": \"ordinary\", \"frame\": \"unknown\", \"evidence_ids\": [\"m1\", \"m2\"], \"summary\": \"对方回复热情且反问了我的口味偏好，双向交流正常，但用户自身是否吃面未知\"}, \"action\": {\"type\": \"CLARIFY\", \"goal\": \"向用户确认自己对面食的偏好以回答对方问题\", \"frame_goal\": \"\"}, \"candidates\": [], \"need_user_input\": [\"对方问你也喜欢吃面吗？你自己喜欢吃面吗？喜欢／一般／不喜欢都可以。\"], \"cycle\": {\"positive\": \"对方主动分享评价并反问，是投入信号\", \"unclear\": \"用户对面食的真实偏好未知，需补问\", \"negative\": \"\"}}",
+      "usage": {
+        "completion_tokens": 200,
+        "prompt_tokens": 5942,
+        "total_tokens": 6142
+      }
+    },
+    {
+      "name": "boundary",
+      "request_sha256": "38eba2f717e24251da32d76fa3365d15cbb2a723533864be4d0ba1b4c67a005a",
+      "reserved_fen": 150,
+      "status": "completed",
+      "rubric": "尊重不见面的明确边界，可自然线上承接；不换地点、换时间或施压重邀。",
+      "content": "{\"snapshot_id\":\"synthetic-boundary\",\"check\":{\"stage\":\"unknown\",\"confidence\":\"low\",\"trend\":\"unknown\",\"comfort\":\"concern\",\"context\":\"ordinary\",\"frame\":\"steady\",\"evidence_ids\":[\"m1\",\"m2\"],\"summary\":\"对方明确暂不想见面、只愿线上聊，是边界而非邀请推进；此前仅一轮互动，互动历史不足以判断阶段\"},\"action\":{\"type\":\"BOUNDARY\",\"goal\":\"接住对方设定的线上交流范围，停止见面提议\",\"frame_goal\":\"\"},\"candidates\":[{\"id\":\"a\",\"text\":\"好，那就在这里聊\",\"reason\":\"直接接住对方给出的允许范围\",\"watch\":\"对方是否继续自然接话；若再提见面则违背边界\"},{\"id\":\"b\",\"text\":\"行，听你的\",\"reason\":\"简短认可，语气更轻松\",\"watch\":\"对方回应是否放松、主动延续话题\"}],\"need_user_input\":[],\"cycle\":{\"positive\":\"对方给出明确可继续的线上交流范围，可在此范围内自然聊天\",\"unclear\":\"对方对线上交流的投入度尚不清楚，先观察是否双向主动\",\"negative\":\"若再次提议见面或绕开该边界，需立即停止该方向\"}}",
+      "usage": {
+        "completion_tokens": 242,
+        "prompt_tokens": 5938,
+        "total_tokens": 6180
+      }
+    }
+  ],
+  "settlement": {
+    "old_ledger_sha256": "e803180fec9f90be7e115f14beab1340d0c2c73fd01e812a22976934c3808c4d",
+    "baseline_sha256": "edc1d3aba4ab2d88edc6b25d0246ead946c87e591d7326edc5a62c397ff0dfe8",
+    "completed_calls": 4,
+    "uncached_cost_millionths_cny": 28930,
+    "rounded_cost_fen": 3,
+    "reserved_fen": 50,
+    "basis": "user-confirmed completed-response usage, not independently verified invoice",
+    "prices_cny_per_million": {
+      "input": 1,
+      "output": 2
+    },
+    "user_confirmation": "RECONCILE-AND-RUN"
+  }
+}

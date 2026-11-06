@@ -1,0 +1,21 @@
+{
+  "entry": "dev.local.newsoul.ModernHostProbe",
+  "sources": [
+    "app/src/main/java/dev/local/newsoul/HostBindings.java",
+    "app/src/main/java/dev/local/newsoul/HostMediaBindings.java",
+    "app/src/main/java/dev/local/newsoul/HostShareBindings.java",
+    "app/src/main/java/dev/local/newsoul/HostMessageDecoration.java",
+    "app/src/main/java/dev/local/newsoul/HostAdBindings.java",
+    "app/src/main/java/dev/local/newsoul/ChatGateResponse.java",
+    "app/src/main/java/dev/local/newsoul/HostDecodedResponse.java",
+    "app/src/main/java/dev/local/newsoul/TeenagePopupResponse.java",
+    "app/src/main/java/dev/local/newsoul/ChatGateRules.java",
+    "app/src/main/java/dev/local/newsoul/HostSymbols.java",
+    "app/src/main/java/dev/local/newsoul/HostSymbolCache.java",
+    "app/src/main/java/dev/local/newsoul/HostDexRules.java",
+    "tests/ModernHostProbe.java"
+  ],
+  "classpath": [
+    "build/deps/*.jar"
+  ]
+}

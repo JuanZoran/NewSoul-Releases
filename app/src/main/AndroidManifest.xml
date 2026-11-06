@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <queries><package android:name="cn.soulapp.android" /></queries>
+    <application android:name="dev.local.newsoul.HomeApplication" android:label="${moduleLabel}" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher"
+        android:description="@string/module_description"
+        android:allowBackup="false" android:supportsRtl="true" android:theme="@android:style/Theme.Material.Light.NoActionBar">
+        <activity android:name="dev.local.newsoul.HomeActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="de.robv.android.xposed.category.MODULE_SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity-alias android:name="dev.local.newsoul.Launcher" android:targetActivity="dev.local.newsoul.HomeActivity"
+            android:enabled="false" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <receiver android:name="dev.local.newsoul.HomeUpgradeReceiver" android:exported="false">
+            <intent-filter><action android:name="android.intent.action.MY_PACKAGE_REPLACED" /></intent-filter>
+        </receiver>
+        <provider android:name="io.github.libxposed.service.XposedProvider"
+            android:authorities="${applicationId}.XposedService" android:exported="true" />
+        <provider android:name="dev.local.newsoul.HomeStatusProvider" android:authorities="${applicationId}.runtime"
+            android:exported="true" android:grantUriPermissions="false" />
+    </application>
+</manifest>

@@ -1,0 +1,34 @@
+package dev.local.newsoul;
+
+/** Generated per edition. No Activities or user data are retained here. */
+final class ShieldValues {
+    private static final byte[] A = new byte[]{@A@};
+    private static final byte[] B = new byte[]{@B@};
+    private static final String[] DATA = new String[]{@DATA@};
+    private static final String[] CACHE = new String[DATA.length];
+    private ShieldValues() {}
+    static synchronized String get(int index) {
+        if (CACHE[index] == null) {
+            try {
+                CACHE[index] = new String(open(java.util.Base64.getDecoder().decode(DATA[index])),
+                        java.nio.charset.StandardCharsets.UTF_8).intern();
+            } catch (java.security.GeneralSecurityException error) {
+                throw new IllegalStateException("Module data invalid", error);
+            }
+        }
+        return CACHE[index];
+    }
+    static byte[] open(byte[] data) throws java.security.GeneralSecurityException {
+        if (data.length < 32 || data[0] != 78 || data[1] != 83 || data[2] != 72 || data[3] != 49)
+            throw new java.security.GeneralSecurityException("Module data header invalid");
+        byte[] key = new byte[A.length];
+        for (int i=0; i<key.length; i++) key[i]=(byte)(A[i]^B[i]);
+        try {
+            javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance("AES/GCM/NoPadding");
+            cipher.init(javax.crypto.Cipher.DECRYPT_MODE, new javax.crypto.spec.SecretKeySpec(key,"AES"),
+                    new javax.crypto.spec.GCMParameterSpec(128, java.util.Arrays.copyOfRange(data,4,16)));
+            cipher.updateAAD(new byte[]{78,83,72,49});
+            return cipher.doFinal(data,16,data.length-16);
+        } finally { java.util.Arrays.fill(key,(byte)0); }
+    }
+}
