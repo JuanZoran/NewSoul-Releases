@@ -2,7 +2,7 @@ package dev.local.newsoul;
 
 /** A response is valid only for this request and this installed module build. */
 final class HomeCheck {
-    static final String[] VERSIONS = {"4.88.0", "6.37.0", "6.38.0", "6.39.0"};
+    static final String[] VERSIONS = {"4.88.0", "6.37.0", "6.38.0", "6.39.0", "6.43.0"};
     static final long TIMEOUT = 8000;
     private String token;
     private long started, code;

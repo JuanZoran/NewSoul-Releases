@@ -42,7 +42,7 @@ final class PostSharePayload {
             Class<?> post = loader.loadClass("cn.soulapp.android.square.post.bean.Post");
             boolean legacy = HostBindings.legacyChat(loader);
             Class<?> json = loader.loadClass(legacy ? "ks.i" : "cn.soulapp.imlib.utils.j");
-            Class<?> sender = loader.loadClass(legacy ? "cn.soulapp.android.component.chat.utils.t3" : "cn.soulapp.android.component.chat.utils.n6");
+            Class<?> sender = HostBindings.shareSender(loader);
             Method encode = json.getMethod("b", Object.class);
             Method decode = json.getMethod("d", String.class, Class.class);
             Method send = sender.getMethod("g", post, String.class);

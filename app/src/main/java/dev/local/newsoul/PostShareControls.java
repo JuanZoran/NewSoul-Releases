@@ -27,8 +27,7 @@ final class PostShareControls {
             }
             Field currentPost = post;
             boolean legacyGate = legacy;
-            Method check = HostBindings.method(dialog, legacy ? "P0" : "r0",
-                    legacy ? boolean.class : void.class, false);
+            Method check = HostBindings.shareRestriction(dialog, legacy);
             Method init = dialog.getDeclaredMethod("initViews", View.class);
             Method renderer = legacy ? HostBindings.method(dialog, "j0", void.class, false, View.class) : null;
             if (legacy ? !Modifier.isPublic(check.getModifiers()) : !Modifier.isPrivate(check.getModifiers()))

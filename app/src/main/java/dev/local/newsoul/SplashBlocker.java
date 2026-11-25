@@ -63,8 +63,9 @@ final class SplashBlocker {
 
     private static void installHotLaunch(XposedModule module, ClassLoader loader) {
         try {
-            if (HostBindings.legacyChat(loader)) {
-                Class<?> callback = loader.loadClass("o5.c$a");
+            boolean legacy = HostBindings.legacyChat(loader);
+            Class<?> callback = HostBindings.hotSplashCallback(loader, legacy);
+            if (legacy) {
                 Method request = callback.getDeclaredMethod("b");
                 Method caller = callback.getDeclaredMethod("a");
                 Method context = HostSymbols.method(HostDexRules.CONTEXT, loader);
@@ -85,7 +86,6 @@ final class SplashBlocker {
             // Soul 6.37.0 HotADManager application-status callback.
             // j(String) is the first boolean gate inside m(String). Returning false
             // selects its normal no-ad result before requests or HotAdActivity launch.
-            Class<?> callback = loader.loadClass("tc.e$a");
             Method gate = callback.getDeclaredMethod("j", String.class);
             Method checks = callback.getDeclaredMethod("m", String.class);
             Method foreground = callback.getDeclaredMethod("onApplicationForeground");
@@ -113,7 +113,7 @@ final class SplashBlocker {
             module.deoptimize(checks);
             module.deoptimize(foreground);
             hotInstalled = true;
-            module.log(Log.INFO, TAG, "new soul: hot splash hook installed (Soul 6.37.0)");
+            module.log(Log.INFO, TAG, "new soul: hot splash hook installed: " + callback.getName());
         } catch (Throwable error) {
             module.log(Log.ERROR, TAG, "new soul: hot splash hook unavailable", error);
         }

@@ -25,6 +25,9 @@ final class HostMediaBindings {
     }
 
     static Method video(ClassLoader loader) throws Exception {
+        if (HostBindings.uses643Bindings(loader))
+            return HostBindings.method(loader.loadClass("cn.soulapp.android.square.utils.o2"),
+                    "b", void.class, true, String.class, Context.class, long.class, boolean.class);
         Class<?> downloader;
         try { downloader = loader.loadClass("cn.soulapp.android.square.utils.l2");
             return HostBindings.method(downloader, "b", void.class, true,

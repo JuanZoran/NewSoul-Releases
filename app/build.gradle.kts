@@ -22,8 +22,8 @@ android {
         applicationId = "io.github.juanzoran.newsoul"
         minSdk = 26
         targetSdk = 35
-        versionCode = 333
-        versionName = "1.50.0"
+        versionCode = 336
+        versionName = "1.50.1"
     }
     packaging { jniLibs.useLegacyPackaging = false }
     defaultConfig.manifestPlaceholders["moduleLabel"] = "New Soul"

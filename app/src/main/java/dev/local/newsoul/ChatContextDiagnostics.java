@@ -155,7 +155,7 @@ final class ChatContextDiagnostics {
                     if (chatType != 0) throw new IllegalStateException("本地完整性核验目前仅支持普通私聊");
                     String sessionId = String.valueOf(call(conversation,"getSessionId"));
                     if (sessionId.isEmpty() || sessionId.equals("null")) throw new IllegalStateException("缺少会话标识");
-                    Method accountGetter = loader.loadClass("cn.soulapp.imlib.j0").getMethod("g");
+                    Method accountGetter = HostBindings.account(loader);
                     String account = String.valueOf(accountGetter.invoke(null));
                     LocalChatHistory.Result history = LocalChatHistory.read(loader, sessionId);
                     DebugDiagnostics.event("chat.history.read", history.facts());

@@ -29,7 +29,6 @@ final class ChatRecallControls {
         try {
             Class<?> im = loader.loadClass("cn.soulapp.imlib.msg.ImMessage");
             Class<?> chat = loader.loadClass("cn.soulapp.imlib.msg.chat.ChatMessage");
-            Class<?> manager = loader.loadClass("cn.soulapp.imlib.ChatManager");
             contextGetter = HostSymbols.method(HostDexRules.CONTEXT, loader);
             account = HostBindings.account(loader);
             getChat = HostBindings.messageMethod(im, "getChatMessage");
@@ -41,13 +40,14 @@ final class ChatRecallControls {
             managerInstance = HostBindings.chatManager(loader);
             conversationFor = HostBindings.conversationFor(loader);
             findMessage = HostBindings.messageMethod(loader.loadClass("cn.soulapp.imlib.Conversation"), "getMessage", String.class);
-            databaseMessage = manager.getMethod(legacy ? "C" : "K", String.class);
-            Class<?> client = loader.loadClass(legacy ? "cn.soulapp.imlib.b" : "cn.soulapp.imlib.i0");
+            databaseMessage = managerInstance.getDeclaringClass().getMethod(legacy ? "C"
+                    : HostBindings.uses643Bindings(loader) ? "O" : "K", String.class);
+            Class<?> client = HostBindings.imManager(loader, legacy);
             imInstance = client.getMethod(legacy ? "t" : "v"); listeners = client.getMethod(legacy ? "u" : "w");
             refresh = loader.loadClass("cn.soulapp.imlib.listener.MsgListener").getMethod("onRefreshUi");
 
             installRows(module, loader, im);
-            Method commands = manager.getDeclaredMethod(legacy ? "G" : "O", List.class);
+            Method commands = HostBindings.recallCommands(loader, legacy);
             module.hook(commands).setId("new-soul/chat-anti-recall")
                     .setExceptionMode(XposedInterface.ExceptionMode.PROTECTIVE)
                     .intercept(chain -> {

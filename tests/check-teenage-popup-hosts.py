@@ -21,6 +21,7 @@ HOSTS = {
     '6.37.0': RESEARCH / 'soul-6.37.0.apk',
     '6.38.0': RESEARCH / 'soul-6.38-candidate.apk',
     '6.39.0': RESEARCH / 'soul-6.39-audit/soul.apk',
+    '6.43.0': RESEARCH / 'soul-6.43-audit/Soul-6.43.0.apk',
 }
 
 

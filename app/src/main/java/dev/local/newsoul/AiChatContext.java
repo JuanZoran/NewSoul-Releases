@@ -926,7 +926,7 @@ final class AiChatContext {
         return (String) value;
     }
     private static String account(ClassLoader loader) throws Exception {
-        return required(loader.loadClass("cn.soulapp.imlib.j0").getMethod("g").invoke(null));
+        return required(HostBindings.account(loader).invoke(null));
     }
     private static void updateHash(MessageDigest digest, String value) {
         byte[] bytes = value.getBytes(StandardCharsets.UTF_8);

@@ -6,12 +6,13 @@ import org.luckypray.dexkit.DexKitBridge;
 /** Runs in an isolated app_process, reads APKs only, never loads Soul classes or installs hooks. */
 public final class HostDexProbe {
     public static void main(String[] args) throws Exception {
-        if (args.length != 3) throw new IllegalArgumentException("native-library APK version(488-inspect|637|638|639)");
+        if (args.length != 3) throw new IllegalArgumentException("native-library APK version(488|488-inspect|637|638|639|643)");
         System.load(args[0]);
         boolean inspect = "488-inspect".equals(args[2]);
         boolean legacy = "488".equals(args[2]);
         boolean soul639 = "639".equals(args[2]);
-        boolean newer = "638".equals(args[2]) || soul639;
+        boolean soul643 = "643".equals(args[2]);
+        boolean newer = "638".equals(args[2]) || soul639 || soul643;
         if (!legacy && !inspect && !newer && !"637".equals(args[2])) throw new IllegalArgumentException("Unknown fixture");
         String p = "Lcn/soulapp/android/component/home/revision/RevisionProfileProvider;->";
         String params = "(Lcom/soul/component/componentlib/service/user/bean/User;Lcn/soulapp/android/component/home/revision/RevisionProfileProvider$ViewHolder;)V";
@@ -27,6 +28,13 @@ public final class HostDexProbe {
         if (soul639) {
             expected.put(HostDexRules.FOLLOW, p + "V1" + params);
             expected.put(HostDexRules.DAYS, p + "T1" + params);
+        }
+        if (soul643) {
+            expected.put(HostDexRules.CONTEXT, "Lpf/b;->b()Landroid/content/Context;");
+            expected.put(HostDexRules.AD_ORIGIN, "Lvi/d;");
+            expected.put(HostDexRules.AD_PROVIDER, "Lvi/k;");
+            expected.put(HostDexRules.FOLLOW, p + "b2" + params);
+            expected.put(HostDexRules.DAYS, p + "Z1" + params);
         }
         if (legacy) {
             expected.put(HostDexRules.CONTEXT, "Ls7/b;->getContext()Landroid/content/Context;");

@@ -50,9 +50,10 @@ final class FollowDisguiseControls {
             formatter = HostBindings.profileNumberFormatter(loader, false);
             oldFormatter = HostBindings.profileNumberFormatter(loader, true);
         } catch (Throwable error) { failure("fields", error); return; }
+        boolean abi643 = HostBindings.uses643Bindings(loader);
         revisionReady = !legacy && installSurface(module, loader, "revision",
                 HostDexRules.PROFILE, null,
-                "cn.soulapp.android.component.home.revision.RevisionProfileProvider$ViewHolder", "o", "q", "g0", "h0", "b", "d", true);
+                "cn.soulapp.android.component.home.revision.RevisionProfileProvider$ViewHolder", "o", "q", abi643 ? "h0" : "g0", abi643 ? "i0" : "h0", "b", "d", true);
         metaReady = legacy ? installLegacyMeta(module, loader) : installSurface(module, loader, "meta",
                 "cn.soulapp.android.component.home.meta.view.MetaFollowFansContainerView", "w",
                 "cn.soulapp.android.component.home.databinding.CUsrMetaFollowFansContainerBinding", "e", "g", "q", "r", "k", "b", false);
@@ -84,9 +85,9 @@ final class FollowDisguiseControls {
         } catch (Throwable error) { failure("header", error); }
         revisionDaysReady = legacy ? installLegacyMeDays(module, loader) : installDays(module, loader,
                 HostDexRules.PROFILE, null,
-                "cn.soulapp.android.component.home.revision.RevisionProfileProvider$ViewHolder", "V", true);
+                "cn.soulapp.android.component.home.revision.RevisionProfileProvider$ViewHolder", abi643 ? "W" : "V", true);
         metaDaysReady = legacy ? installLegacyMetaDays(module, loader) : installDays(module, loader,
-                "cn.soulapp.android.component.home.meta.me2.userinfo.UserInfoProvider", "t0",
+                "cn.soulapp.android.component.home.meta.me2.userinfo.UserInfoProvider", abi643 ? "x0" : "t0",
                 "cn.soulapp.android.component.home.databinding.CUsrLayoutMeInfoNewBinding", "y", false);
         module.log(Log.INFO, "SoulHook102", "days disguise registered: revision=" + revisionDaysReady + "; meta=" + metaDaysReady);
         module.log(Log.INFO, "SoulHook102", "follow disguise registered: revision=" + revisionReady

@@ -22,7 +22,7 @@ final class HostShareBindings {
         user = field(sheet, legacy ? "A" : "D");
         kind = field(sheet, legacy ? "z" : "C");
         actions = field(base, legacy ? "n" : "q");
-        click = sheet.getDeclaredMethod(legacy ? "l0" : "P0", operation, android.view.View.class, int.class);
+        click = sheet.getDeclaredMethod(legacy ? "l0" : HostBindings.uses643Bindings(loader) ? "Q0" : "P0", operation, android.view.View.class, int.class);
         adapter = loader.loadClass(legacy ? "uo.d" : "cn.soulapp.android.square.adapter.TypeAdapter");
         holder = loader.loadClass(adapter.getName() + "$a");
         if (legacy) {

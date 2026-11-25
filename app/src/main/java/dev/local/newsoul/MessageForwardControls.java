@@ -72,6 +72,7 @@ final class MessageForwardControls {
 
     private void installHooks(XposedModule module,ClassLoader loader)throws Exception {
         legacy = HostBindings.legacyChat(loader);
+        boolean abi643 = HostBindings.uses643Bindings(loader);
         selector=loader.loadClass("cn.soulapp.android.component.chat.SelectConversationActivity");
         Class<?> dialog=loader.loadClass(legacy ? "cn.soulapp.android.component.chat.dialog.s0" : "cn.soulapp.android.component.chat.dialog.j1");
         confirmListener=loader.loadClass("cn.soulapp.android.chat.listener.OnClickConfirmListener");
@@ -83,20 +84,20 @@ final class MessageForwardControls {
         setType=HostBindings.messageMethod(chat,"setMsgType",int.class);setExtras=HostBindings.messageMethod(chat,"setTransExtMap",Map.class);
         decoration=new HostMessageDecoration(loader);
         createMessage=HostBindings.messageMethod(message,"createChatSendMsg",chat,String.class);
-        Class<?> imManager=loader.loadClass(legacy ? "cn.soulapp.imlib.b" : "cn.soulapp.imlib.i0");
+        Class<?> imManager=HostBindings.imManager(loader, legacy);
         getImManager=imManager.getMethod(legacy ? "t" : "v");getChatManager=imManager.getMethod(legacy ? "n" : "o");
-        deliver=loader.loadClass("cn.soulapp.imlib.ChatManager").getMethod(legacy ? "b0" : "q0",message);
+        deliver=loader.loadClass("cn.soulapp.imlib.ChatManager").getMethod(legacy ? "b0" : abi643 ? "B0" : "q0",message);
         Class<?> presenter=HostSymbols.recipientPresenter(loader);
         toggleRecipient=legacy ? presenter.getMethod("s1",int.class)
-                : presenter.getMethod("g2",loader.loadClass("cn.soulapp.android.chat.bean.UserConversation"));
-        selectedRecipients=presenter.getMethod(legacy ? "Z" : "m0");
+                : presenter.getMethod(abi643 ? "Z2" : "g2",loader.loadClass("cn.soulapp.android.chat.bean.UserConversation"));
+        selectedRecipients=presenter.getMethod(legacy ? "Z" : abi643 ? "J0" : "m0");
         if (legacy) { presenterRows=presenter.getDeclaredField("p"); presenterRows.setAccessible(true); }
         Class<?> adapterClass=loader.loadClass("cn.soulapp.android.component.chat.adapter.ConversationAdapter");
         adapterClass.getMethod("k",boolean.class);
         choiceListener=loader.loadClass("com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter$OnItemClickListener");
         bindChoice=adapterClass.getMethod("setOnItemClickListener",choiceListener);
         selector.getDeclaredField("b");selector.getDeclaredField("e");
-        Method click=selector.getDeclaredMethod("F",int.class);
+        Method click=HostBindings.forwardSelection(selector);
         module.hook(click).setId("new-soul/message-forward-select")
                 .setExceptionMode(XposedInterface.ExceptionMode.PROTECTIVE).intercept(chain->{
                     Activity activity=(Activity)chain.getThisObject();
@@ -132,7 +133,7 @@ final class MessageForwardControls {
                     if(marked(activity))try{
                         if(request(activity)==null){activity.finish();return result;}
                         Object adapter=field(activity,"b");adapter.getClass().getMethod("k",boolean.class).invoke(adapter,true);
-                        // Own only this marked picker's callback; do not depend on native F being interceptable.
+                        // Own the marked picker callback even if Soul inlines its native click handler.
                         Object choices=Proxy.newProxyInstance(choiceListener.getClassLoader(),new Class<?>[]{choiceListener},(proxy,method,args)->{
                             if(method.getDeclaringClass()==Object.class){
                                 if(method.getName().equals("hashCode"))return System.identityHashCode(proxy);
@@ -153,7 +154,8 @@ final class MessageForwardControls {
                 });
         module.deoptimize(init);
         // Every native completion path of this marked picker is redirected; ordinary Soul shares are untouched.
-        for(Method method:new Method[]{selector.getDeclaredMethod("E",View.class),selector.getDeclaredMethod("S")}) {
+        for(Method method:new Method[]{selector.getDeclaredMethod(abi643 ? "G" : "E", View.class),
+                selector.getDeclaredMethod(abi643 ? "U" : "S")}) {
             module.hook(method).setId("new-soul/message-forward-complete-"+method.getName())
                     .setExceptionMode(XposedInterface.ExceptionMode.PROTECTIVE).intercept(chain->{
                         Activity activity=(Activity)chain.getThisObject();
@@ -161,7 +163,7 @@ final class MessageForwardControls {
                     });
             module.deoptimize(method);
         }
-        for(Method method:new Method[]{selector.getDeclaredMethod("D",Object.class),selector.getDeclaredMethod("onClick",View.class)}) {
+        for(Method method:new Method[]{selector.getDeclaredMethod(abi643 ? "F" : "D", Object.class),selector.getDeclaredMethod("onClick",View.class)}) {
             module.hook(method).setId("new-soul/message-forward-navigation-"+method.getName())
                     .setExceptionMode(XposedInterface.ExceptionMode.PROTECTIVE)
                     .intercept(chain->marked((Activity)chain.getThisObject())?null:chain.proceed());

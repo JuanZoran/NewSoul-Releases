@@ -141,12 +141,14 @@ final class AdControls {
             // chat-tools slot mapping so ordinary conversation rows remain untouched.
             if(n.equals(conversationOrigin)) return "ad_conversation";
             if(n.startsWith("cn.soulapp.android.component.chat.limitdialog.RewardAdHelper")) return "ad_reward_chat";
-            if(n.startsWith("cn.soulapp.android.component.square.video.drama.o0")) return "ad_reward_drama";
+            if (bindings != null && classOrNested(n, "cn.soulapp.android.component.square.video.drama."
+                    + (bindings.abi643 ? "q0" : "o0"))) return "ad_reward_drama";
             if(n.startsWith("cn.soulapp.android.ad.h5.moduel.") || (bindings != null && !bindings.legacy && n.equals("cc.c"))
                 || n.startsWith("cn.soul.android.soul_rn_sdk.plugin.SRNAdPlugin")
                 || n.startsWith("cn.soul.android.soul_rn_sdk.plugin.SoulRnAdPlugin")) return "ad_reward_web";
             if(n.startsWith("cn.soulapp.android.ad.base.view.AdFloatViewProvider")) return "ad_float";
-            if(bindings != null && !bindings.legacy && n.equals("cn.soulapp.android.ad.base.view.e")) return "ad_interstitial";
+            if (bindings != null && !bindings.legacy && classOrNested(n, "cn.soulapp.android.ad.base.view."
+                    + (bindings.abi643 ? "AdInterstitialProvider" : "e"))) return "ad_interstitial";
             if (bindings != null && bindings.legacy) {
                 if (n.equals("c3.a")) return "ad_float";
                 if (n.equals("c3.c")) return "ad_interstitial";
@@ -155,6 +157,10 @@ final class AdControls {
         }
         return null;
     }
+    private static boolean classOrNested(String name, String owner) {
+        return name.equals(owner) || name.startsWith(owner + "$");
+    }
+
     private static void installLoader(ClassLoader loader,String name,String sf,String lf,String cf) {
         try {
             Class<?> c=loader.loadClass(name); Field slot=field(c,sf), listener=field(c,lf), context=field(c,cf);
@@ -193,7 +199,7 @@ final class AdControls {
                 });
             if (bindings.legacy) {
                 ready.addAll(bindings.requestKeys(loader,name));
-            } else if(name.equals("lb.h")) ready.addAll(Arrays.asList("ad_reward_chat","ad_reward_drama","ad_reward_web"));
+            } else if(bindings.isRewardLoader(name)) ready.addAll(Arrays.asList("ad_reward_chat","ad_reward_drama","ad_reward_web"));
             else {ready.addAll(SLOTS.values());ready.add("ad_float");ready.add("ad_interstitial");}
         } catch(Throwable t) {error(name,t);}
     }

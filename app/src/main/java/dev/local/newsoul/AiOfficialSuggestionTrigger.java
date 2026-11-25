@@ -60,7 +60,7 @@ final class AiOfficialSuggestionTrigger {
             Class<?> prologue = loader.loadClass("cn.soulapp.android.component.chat.inputmenu.inputservice.ChatInputAIGCPrologueService");
             Class<?> menu = loader.loadClass("cn.soulapp.android.component.chat.inputmenu.SingleChatMediaMenu");
             Class<?> privilege = loader.loadClass("cn.soulapp.android.component.chat.bean.PrivilegeInfo");
-            Method decision = manager.getDeclaredMethod("q0", conversation, String.class, boolean.class,
+            Method decision = manager.getDeclaredMethod(HostBindings.uses643Bindings(loader) ? "s0" : "q0", conversation, String.class, boolean.class,
                     meeting, String.class, int.class, int.class, compat);
             Method positionOf = scene.getMethod("a");
             Method entering = HostBindings.officialSuggestionEntry(fragment);

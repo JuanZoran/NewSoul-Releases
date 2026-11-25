@@ -97,9 +97,10 @@ final class InteractionPrivacyControls {
         photosReady = installLimit(module, loader, "getMaxSelectNum", PHOTOS);
         videosReady = installLimit(module, loader, "getMaxVideoSelectNum", VIDEOS);
         try {
-            Class<?> callback = loader.loadClass("cn.soulapp.android.component.chat.business.g$a");
+            String owner = HostBindings.uses643Bindings(loader) ? "h$a" : "g$a";
+            Class<?> callback = loader.loadClass("cn.soulapp.android.component.chat.business." + owner);
             Class<?> result = loader.loadClass("com.soulapp.soulgift.bean.CommonDataBo");
-            Method next = callback.getDeclaredMethod("a", result);
+            Method next = HostBindings.method(callback, "a", void.class, false, result);
             module.hook(next).setId("new-soul/close-friend-invite")
                     .setExceptionMode(XposedInterface.ExceptionMode.PROTECTIVE).intercept(chain -> {
                         if (enabled(INVITE)) return null;

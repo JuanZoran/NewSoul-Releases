@@ -12,7 +12,7 @@ import java.util.Set;
 
 /** Request ABI only; placement classification stays independent of loader type. */
 final class HostAdBindings {
-    final boolean legacy;
+    final boolean legacy, abi643;
     final Class<?> slot;
     final Method slotId;
     final String[][] loaders;
@@ -39,15 +39,22 @@ final class HostAdBindings {
         slot = loader.loadClass(legacy ? "d3.a" : "fa.a");
         slotId = slot.getDeclaredMethod(legacy ? "c" : "b");
         if (slotId.getReturnType() != String.class) throw new NoSuchMethodException("ad slot identity");
+        abi643 = HostBindings.uses643Bindings(loader);
         loaders = legacy ? new String[][] {
                 {"c4.c", "a", "b", "e"}, {"g4.d", "a", "b", "f"},
                 {"e4.g", "b", "c", "a"}
+        } : abi643 ? new String[][] {
+                {"kb.e", "a", "b", "e"}, {"nb.d", "a", "c", "b"}, {"mb.h", "b", "c", "a"}
         } : new String[][] {
                 {"jb.e", "a", "b", "e"}, {"mb.d", "a", "c", "b"}, {"lb.h", "b", "c", "a"}
         };
         // la.a / ia.a exist in 4.88 but describe unrelated chat classes.
-        postAd = loader.loadClass(legacy ? "j3.a" : "la.a");
+        postAd = loader.loadClass(legacy ? "j3.a" : abi643 ? "la.b" : "la.a");
         expressAd = loader.loadClass(legacy ? "g3.a" : "ia.a");
+    }
+
+    boolean isRewardLoader(String owner) {
+        return owner.equals(loaders[2][0]);
     }
 
     static String legacyPlacement(String slot, String origin, String callback) {

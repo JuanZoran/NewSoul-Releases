@@ -6,6 +6,7 @@ import java.lang.reflect.*;
  * Dynamic DexKit bindings remain in HostSymbols; this class does not guess replacement names. */
 final class HostBindings {
     static final String FRAGMENT = "cn.soulapp.android.component.chat.fragment.ConversationFragment";
+    private static final String SENDER_643 = "cn.soulapp.android.component.chat.utils.f5";
     static final String SENDER = "cn.soulapp.android.component.chat.utils.y4";
     static final String LEGACY_SENDER = "cn.soulapp.android.component.chat.utils.t2";
     static final String USER = "cn.soulapp.android.client.component.middle.platform.model.api.user.ImUserBean";
@@ -21,7 +22,15 @@ final class HostBindings {
         return parent != null && parent.getName().equals(
                 "cn.soulapp.android.component.chat.fragment.BaseConversationFragment");
     }
+    static boolean uses643Bindings(ClassLoader loader) {
+        try {
+            return loader.loadClass(FRAGMENT).getDeclaredField("R").getType().getName().equals(SENDER_643);
+        } catch (ReflectiveOperationException missing) {
+            return false;
+        }
+    }
     static Class<?> sender(ClassLoader loader) throws ClassNotFoundException {
+        if (uses643Bindings(loader)) return loader.loadClass(SENDER_643);
         try { return loader.loadClass(SENDER); }
         catch (ClassNotFoundException missing) { return loader.loadClass(LEGACY_SENDER); }
     }
@@ -29,6 +38,7 @@ final class HostBindings {
         Class<?> manager = loader.loadClass("cn.soulapp.imlib.ChatManager");
         Class<?> im = loader.loadClass(MESSAGE);
         Class<?>[] args = retryArgument ? new Class<?>[]{im, boolean.class} : new Class<?>[]{im};
+        if (uses643Bindings(loader)) return method(manager, retryArgument ? "A0" : "z0", void.class, false, args);
         try { return method(manager, retryArgument ? "p0" : "o0", void.class, false, args); }
         catch (NoSuchMethodException missing) {
             return method(manager, retryArgument ? "a0" : "Z", void.class, false, args);
@@ -36,12 +46,14 @@ final class HostBindings {
     }
     static Method chatManager(ClassLoader loader) throws Exception {
         Class<?> owner = loader.loadClass("cn.soulapp.imlib.ChatManager");
+        if (uses643Bindings(loader)) return method(owner, "Q", owner, true);
         try { return method(owner, "M", owner, true); }
         catch (NoSuchMethodException missing) { return method(owner, "E", owner, true); }
     }
     static Method conversationFor(ClassLoader loader) throws Exception {
         Class<?> owner = loader.loadClass("cn.soulapp.imlib.ChatManager");
         Class<?> result = loader.loadClass(CONVERSATION);
+        if (uses643Bindings(loader)) return method(owner, "J", result, false, String.class);
         try { return method(owner, "F", result, false, String.class); }
         catch (NoSuchMethodException missing) { return method(owner, "z", result, false, String.class); }
     }
@@ -77,7 +89,39 @@ final class HostBindings {
         if (found == null) throw new NoSuchFieldException(owner.getName() + ": " + type.getName());
         found.setAccessible(true); return found;
     }
+    static Class<?> imManager(ClassLoader loader, boolean legacy) throws ClassNotFoundException {
+        return loader.loadClass(legacy ? "cn.soulapp.imlib.b"
+                : uses643Bindings(loader) ? "cn.soulapp.imlib.p0" : "cn.soulapp.imlib.i0");
+    }
+    static Method recallCommands(ClassLoader loader, boolean legacy) throws Exception {
+        Class<?> manager = loader.loadClass("cn.soulapp.imlib.ChatManager");
+        return method(manager, legacy ? "G" : uses643Bindings(loader) ? "S" : "O",
+                void.class, false, java.util.List.class);
+    }
+    static Class<?> hotSplashCallback(ClassLoader loader, boolean legacy) throws ClassNotFoundException {
+        return loader.loadClass(legacy ? "o5.c$a" : uses643Bindings(loader) ? "wc.e$a" : "tc.e$a");
+    }
+    static Method shareRestriction(Class<?> sheet, boolean legacy) throws Exception {
+        return method(sheet, legacy ? "P0" : uses643Bindings(sheet.getClassLoader()) ? "s0" : "r0",
+                legacy ? boolean.class : void.class, false);
+    }
+    static Method settingsPageLoader(ClassLoader loader, boolean legacy) throws Exception {
+        Class<?> h5 = loader.loadClass("cn.soulapp.android.h5.activity.H5Activity");
+        if (legacy) return h5.getDeclaredMethod("onResume");
+        Method load = method(h5, uses643Bindings(loader) ? "k1" : "m1", void.class, false, boolean.class);
+        if (!Modifier.isPrivate(load.getModifiers())) throw new ContractFailure("H5Activity loader visibility");
+        return load;
+    }
+    static Method forwardSelection(Class<?> selector) throws Exception {
+        return method(selector, uses643Bindings(selector.getClassLoader()) ? "H" : "F",
+                void.class, false, int.class);
+    }
+    static Class<?> shareSender(ClassLoader loader) throws Exception {
+        return loader.loadClass("cn.soulapp.android.component.chat.utils."
+                + (legacyChat(loader) ? "t3" : uses643Bindings(loader) ? "u6" : "n6"));
+    }
     static Method account(ClassLoader loader) throws Exception {
+        if (uses643Bindings(loader)) return method(loader.loadClass("cn.soulapp.imlib.q0"), "g", String.class, true);
         Class<?> owner;
         boolean legacy = false;
         try { owner = loader.loadClass("cn.soulapp.imlib.j0"); }
@@ -161,7 +205,8 @@ final class HostBindings {
             boolean legacy = legacyChat(loader);
             Class<?> fields = legacy ? fragmentType.getSuperclass() : fragmentType;
             userType = loader.loadClass(USER); conversationType = loader.loadClass(CONVERSATION);
-            peer = field(fields, legacy ? "D" : "L", String.class); sender = field(fields, legacy ? "I" : "Q", senderType);
+            peer = field(fields, legacy ? "D" : "L", String.class);
+            sender = field(fields, legacy ? "I" : uses643Bindings(loader) ? "R" : "Q", senderType);
             user = field(fields, legacy ? "G" : "O", userType); encryptedId = field(userType, "userIdEcpt", String.class);
             senderFragment = field(senderType, "a", fragmentType);
             conversation = uniqueField(fragmentType, conversationType);
@@ -185,6 +230,7 @@ final class HostBindings {
         Class<?> owner = loader.loadClass("cn.soulapp.android.component.chat.ConversationActivity");
         Class<?> fragment = loader.loadClass("androidx.fragment.app.Fragment");
         if (legacyChat(loader)) return method(owner, "r", fragment, false);
+        if (uses643Bindings(loader)) return method(owner, "A", fragment, false);
         try { return method(owner, "y", fragment, false); }
         catch (ReflectiveOperationException changed) { return method(owner, "z", fragment, false); }
     }
@@ -192,14 +238,17 @@ final class HostBindings {
         if (legacyChat(loader)) return method(loader.loadClass("cn.soulapp.android.client.component.middle.platform.utils.w1"),
                 "b", String.class, true, int.class);
         String name = oldStyle ? "e" : "f";
-        Class<?> format = loader.loadClass("cn.soulapp.android.client.component.middle.platform.utils.m2");
-        try { return method(format, name, String.class, true, int.class); }
+        String prefix = "cn.soulapp.android.client.component.middle.platform.utils.";
+        if (uses643Bindings(loader))
+            return method(loader.loadClass(prefix + "s1"), name, String.class, true, int.class);
+        try { return method(loader.loadClass(prefix + "m2"), name, String.class, true, int.class); }
         catch (ReflectiveOperationException changed) {
             return method(loader.loadClass("cn.soulapp.android.client.component.middle.platform.utils.r1"),
                     name, String.class, true, int.class);
         }
     }
     static Method officialSuggestionEntry(Class<?> fragment) throws NoSuchMethodException {
+        if (uses643Bindings(fragment.getClassLoader())) return fragment.getDeclaredMethod("x9");
         try { return fragment.getDeclaredMethod("P8"); }
         catch (NoSuchMethodException changed) { return fragment.getDeclaredMethod("T8"); }
     }
@@ -251,8 +300,8 @@ final class HostBindings {
             Class<?> context = loader.loadClass("android.content.Context");
             Class<?> view = loader.loadClass("android.view.View");
             Class<?> menu = loader.loadClass("cn.soulapp.android.component.chat.window.ChatLongClickPopUp$a");
-            helperType = loader.loadClass(legacy ? "cn.soulapp.android.component.chat.utils.o"
-                    : "cn.soulapp.android.component.chat.utils.u0");
+            boolean abi643 = uses643Bindings(loader);
+            helperType = menuHelper(loader, legacy);
             Class<?> presenter = legacy ? owner.getDeclaredField("x").getType() : modernPresenter;
             if (presenter == null) throw new ContractFailure("chat presenter unavailable");
             item = menu.getConstructor(String.class, int.class, int.class);
@@ -260,15 +309,25 @@ final class HostBindings {
             send = sender(loader).getDeclaredMethod(legacy ? "a1" : "p1", messageType);
             send.setAccessible(true);
             // Legacy ChatManager already runs pre-send and message listeners.
-            gate = legacy ? null : loader.loadClass("cn.soulapp.android.chat.utils.f").getMethod("a", messageType);
+            gate = legacy ? null : loader.loadClass("cn.soulapp.android.chat.utils." + (abi643 ? "g" : "f")).getMethod("a", messageType);
             click = helperType.getDeclaredMethod(legacy ? "f" : "p", messageType,
                     legacy ? context : fragmentType, legacy ? owner : context, presenter,
                     view, int.class, view, menu, int.class);
-            list = helperType.getDeclaredMethod(legacy ? "d" : "k", owner, view, messageType);
+            list = menuList(loader, legacy);
             clickContextIndex = legacy ? 1 : 2;
         }
     }
 
+    private static Class<?> menuHelper(ClassLoader loader, boolean legacy) throws ClassNotFoundException {
+        return loader.loadClass("cn.soulapp.android.component.chat.utils."
+                + (legacy ? "o" : uses643Bindings(loader) ? "t0" : "u0"));
+    }
+    static Method menuList(ClassLoader loader, boolean legacy) throws Exception {
+        Class<?> fragment = loader.loadClass(FRAGMENT);
+        return menuHelper(loader, legacy).getDeclaredMethod(legacy ? "d" : "k",
+                legacy ? fragment.getSuperclass() : fragment, loader.loadClass("android.view.View"),
+                loader.loadClass(MESSAGE));
+    }
     static String chatShareIcon(boolean legacy) {
         return legacy ? "c_ct_group_share_white" : "c_ct_longclick_menu_share";
     }
@@ -280,6 +339,7 @@ final class HostBindings {
     }
     private static Method modernBubbleLongClick(Class<?> fragment, Class<?> message, Class<?> view)
             throws NoSuchMethodException {
+        if (uses643Bindings(fragment.getClassLoader())) return fragment.getDeclaredMethod("Tc", view, message, int.class);
         try { return fragment.getDeclaredMethod("ac", view, message, int.class); }
         catch (NoSuchMethodException changed) { return fragment.getDeclaredMethod("hc", view, message, int.class); }
     }
@@ -290,9 +350,10 @@ final class HostBindings {
         SquareFeed(ClassLoader loader, boolean legacy) throws Exception {
             adapterType = loader.loadClass("cn.soulapp.android.component.square.main.squarepost.SquareAdapter");
             holderType = loader.loadClass("cn.soulapp.android.component.square.main.squarepost.viewholder.BaseSquareViewHolder");
-            bind = adapterType.getDeclaredMethod(legacy ? "c" : "d", holderType, Object.class);
-            recycle = adapterType.getDeclaredMethod(legacy ? "h" : "j", holderType);
-            attach = adapterType.getDeclaredMethod(legacy ? "g" : "h", holderType);
+            boolean abi643 = uses643Bindings(loader);
+            bind = adapterType.getDeclaredMethod(legacy ? "c" : abi643 ? "e" : "d", holderType, Object.class);
+            recycle = adapterType.getDeclaredMethod(legacy ? "h" : abi643 ? "k" : "j", holderType);
+            attach = adapterType.getDeclaredMethod(legacy ? "g" : abi643 ? "i" : "h", holderType);
         }
     }
 
@@ -319,10 +380,14 @@ final class HostBindings {
         Welfare(ClassLoader loader) throws Exception {
             Class<?> owner;
             String modelName;
-            try { owner = loader.loadClass("vy.w"); modelName = "zy.a"; }
-            catch (ClassNotFoundException missing639) {
-                try { owner = loader.loadClass("ty.w"); modelName = "xy.a"; }
-                catch (ClassNotFoundException missing638) { owner = loader.loadClass("sy.w"); modelName = "wy.a"; }
+            if (uses643Bindings(loader)) {
+                owner = loader.loadClass("ry.w"); modelName = "vy.a";
+            } else {
+                try { owner = loader.loadClass("vy.w"); modelName = "zy.a"; }
+                catch (ClassNotFoundException missing639) {
+                    try { owner = loader.loadClass("ty.w"); modelName = "xy.a"; }
+                    catch (ClassNotFoundException missing638) { owner = loader.loadClass("sy.w"); modelName = "wy.a"; }
+                }
             }
             Class<?> model = loader.loadClass(modelName);
             Class<?> call = loader.loadClass("okhttp3.Call");

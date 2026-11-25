@@ -125,17 +125,18 @@ final class HookDiagnostics {
         SharedPreferences prefs = PluginPreferences.get(activity);
         String previous = prefs.getString(LAST_VERSION, null);
         ClassLoader loader = activity.getClassLoader();
-        boolean legacy;
-        try { legacy = HostBindings.legacyChat(loader); }
-        catch (Throwable unavailable) { legacy = false; }
+        boolean legacy = isLegacy(loader);
         List<String> lines = new ArrayList<>();
         int missing = 0;
         missing += probe(lines, loader, "签到 / 在线隐身 / 注册天数请求入口", "retrofit2.OkHttpCall", "createRawCall", HostAccountHttp.ready && AccountAutomationControls.ready);
         missing += probeBinding(lines, "签到抽奖请求入口", HostWelfareHttp.ready,
                 () -> new HostBindings.Welfare(loader).send);
-        missing += probe(lines, loader, "设置入口", "cn.soulapp.android.h5.activity.H5Activity", legacy ? "onResume" : "m1", SoulHook.settingsHookReady, legacy ? new String[0] : new String[]{"boolean"});
+        missing += probeBinding(lines, "设置入口", SoulHook.settingsHookReady, () -> HostBindings.settingsPageLoader(loader, legacy));
         missing += probe(lines, loader, "冷启动广告", "cn.soulapp.android.component.startup.main.MainScheduler", legacy ? "t" : "v", SplashBlocker.installed);
-        missing += probe(lines, loader, "热启动广告", legacy ? "o5.c$a" : "tc.e$a", legacy ? "b" : "j", SplashBlocker.hotInstalled, legacy ? new String[0] : new String[]{"java.lang.String"});
+        missing += probeBinding(lines, "热启动广告", SplashBlocker.hotInstalled, () -> {
+            Class<?> callback = HostBindings.hotSplashCallback(loader, legacy);
+            return legacy ? callback.getDeclaredMethod("b") : callback.getDeclaredMethod("j", String.class);
+        });
         missing += probeBinding(lines, "广告位识别", !AdControls.ready.isEmpty(), () -> new HostAdBindings(loader).slotId);
         int adReady = 0;
         int adSupported = 0;
@@ -176,7 +177,7 @@ final class HookDiagnostics {
         lines.add("内容类型筛选 · " + (SquareFeedFilter.contentReady ? "字段已识别，待实测" : "字段未就绪"));
         lines.add("VIP 帖子筛选 · " + (SquareFeedFilter.vipReady ? "字段已识别，待实测" : "字段未就绪"));
         lines.add("主页瞬间点赞 · " + (ProfileMomentLikes.ready ? "Hook 已注册，待实测" : "Hook 未就绪"));
-        missing += probe(lines, loader, "消息防撤回", "cn.soulapp.imlib.ChatManager", legacy ? "G" : "O", ChatRecallControls.ready, "java.util.List");
+        missing += probeBinding(lines, "消息防撤回", ChatRecallControls.ready, () -> HostBindings.recallCommands(loader, legacy));
         missing += probe(lines, loader, "自己撤回", legacy ? "cn.soulapp.android.component.chat.helper.j1" : "cn.soulapp.android.component.chat.helper.WithDrawHandler", legacy ? "a" : "d", OwnRecallControls.ready, "cn.soulapp.imlib.msg.ImMessage");
         missing += probeBinding(lines, "隐藏输入状态", ChatExperienceControls.typingReady, () -> HostBindings.commandSend(loader, true));
         missing += probe(lines, loader, "匹配音乐", legacy ? "cn.soulapp.android.component.planet.soulmatch.helper.MusicHelper" : "cn.soulapp.android.component.planet.soulmatch.utils.SoulMusicHelper", legacy ? "n" : "k", ChatExperienceControls.musicReady);
@@ -184,9 +185,10 @@ final class HookDiagnostics {
         if (ChatGateControls.bellSupported)
             missing += probe(lines, loader, "奇遇铃送礼限制", "cn.soulapp.android.component.home.lovebell.bean.LoveBellProConfig", "getShowPopup", ChatGateControls.bellReady);
         else lines.add("奇遇铃送礼限制：当前宿主无此功能");
-        missing += probe(lines, loader, "聊天复读/转发", legacy ? "cn.soulapp.android.component.chat.utils.o" : "cn.soulapp.android.component.chat.utils.u0", legacy ? "d" : "k", ChatRepeatControls.ready, legacy ? "cn.soulapp.android.component.chat.fragment.BaseConversationFragment" : "cn.soulapp.android.component.chat.fragment.ConversationFragment", "android.view.View", "cn.soulapp.imlib.msg.ImMessage");
+        missing += probeBinding(lines, "聊天复读/转发", ChatRepeatControls.ready, () -> HostBindings.menuList(loader, legacy));
         missing += probe(lines, loader, "底栏长按设置", "cn.soulapp.android.component.startup.main.MainActivity", "onCreate", BottomSettingsEntry.ready, "android.os.Bundle");
-        missing += probe(lines, loader, "消息转发选择", "cn.soulapp.android.component.chat.SelectConversationActivity", "F", ChatRepeatControls.forwardReady, "int");
+        missing += probeBinding(lines, "消息转发选择", ChatRepeatControls.forwardReady,
+                () -> HostBindings.forwardSelection(loader.loadClass("cn.soulapp.android.component.chat.SelectConversationActivity")));
         missing += probeBinding(lines, "语音库发送", VoiceLibraryControls.ready, () -> HostBindings.voiceSend(loader));
         if (PrivacyPhotoControls.previewSupported) {
             missing += probe(lines, loader, "聊天隐私媒体", "cn.soulapp.android.component.chat.snapchat.PrivacyProtectPreviewActivity", "init", PrivacyPhotoControls.previewReady, "android.os.Bundle");
@@ -197,14 +199,16 @@ final class HookDiagnostics {
         else lines.add("闪照：当前宿主无此功能");
         missing += probeBinding(lines, "图片下载", MediaDownloadControls.imageReady, () -> HostMediaBindings.image(loader));
         missing += probeBinding(lines, "视频下载", MediaDownloadControls.videoReady, () -> HostMediaBindings.video(loader));
-        missing += probe(lines, loader, "帖子分享限制", "cn.soulapp.android.square.SeedsShareDialogFragment", legacy ? "P0" : "r0", PostShareControls.ready);
+        missing += probeBinding(lines, "帖子分享限制", PostShareControls.ready,
+                () -> HostBindings.shareRestriction(loader.loadClass("cn.soulapp.android.square.SeedsShareDialogFragment"), legacy));
         lines.add("主页插眼 · " + (ProfileBookmarkControls.ready ? "Hook 已注册，待实测" : "Hook 未就绪"));
         missing += probe(lines, loader, "礼仪分本地限制", SocialScoreControls.MODEL, legacy ? "b" : "getCreateSessionLimit", SocialScoreControls.modelReady);
         missing += probe(lines, loader, "礼仪分限制弹窗", SocialScoreControls.DIALOG, "b", SocialScoreControls.dialogReady,
                 "androidx.fragment.app.FragmentManager", SocialScoreControls.DIALOG + "$a");
-        missing += probe(lines, loader, "帖子多人分享", legacy ? "cn.soulapp.android.component.chat.utils.t3" : "cn.soulapp.android.component.chat.utils.n6", "g", PostBatchShareControls.ready, "cn.soulapp.android.square.post.bean.Post", "java.lang.String");
+        missing += probeBinding(lines, "帖子多人分享", PostBatchShareControls.ready, () -> HostBindings.shareSender(loader)
+                .getMethod("g", loader.loadClass("cn.soulapp.android.square.post.bean.Post"), String.class));
         missing += probe(lines, loader, "帖子文案复制", "cn.soulapp.android.square.SeedsShareDialogFragment", "initViews", PostCopyControls.ready, "android.view.View");
-        missing += probe(lines, loader, "广场帖子筛选", "cn.soulapp.android.component.square.main.squarepost.SquareAdapter", legacy ? "c" : "d", SquareFeedFilter.ready, "cn.soulapp.android.component.square.main.squarepost.viewholder.BaseSquareViewHolder", "java.lang.Object");
+        missing += probeBinding(lines, "广场帖子筛选", SquareFeedFilter.ready, () -> new HostBindings.SquareFeed(loader, legacy).bind);
         missing += probe(lines, loader, "广场一键点赞", "cn.soulapp.android.component.startup.main.MainActivity", "onCreate", SquareLikeControls.ready, "android.os.Bundle");
         missing += probeLoadedLikes(lines, loader);
         missing += probeResolved(lines, loader, "公共上下文", HostDexRules.CONTEXT);
@@ -220,6 +224,11 @@ final class HookDiagnostics {
         probeAiEntry(lines);
         prefs.edit().putString(LAST_VERSION, version).apply();
         return new Result(version, previous, lines, missing);
+    }
+
+    private static boolean isLegacy(ClassLoader loader) {
+        try { return HostBindings.legacyChat(loader); }
+        catch (Throwable unavailable) { return false; }
     }
 
     private static void probeAiEntry(List<String> lines) {

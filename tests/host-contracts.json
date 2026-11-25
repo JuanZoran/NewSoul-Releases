@@ -9,12 +9,6 @@
       ]
     },
     {
-      "class": "cn.soulapp.imlib.j0",
-      "methods": [
-        ["g", "()Ljava/lang/String;"]
-      ]
-    },
-    {
       "class": "cn.soulapp.imlib.Conversation",
       "methods": [
         ["getSessionId", "()Ljava/lang/String;"],
@@ -43,28 +37,11 @@
       "class": "cn.soulapp.android.component.chat.fragment.ConversationFragment",
       "fields": [
         ["L", "Ljava/lang/String;"],
-        ["O", "Lcn/soulapp/android/client/component/middle/platform/model/api/user/ImUserBean;"],
-        ["Q", "Lcn/soulapp/android/component/chat/utils/y4;"]
+        ["O", "Lcn/soulapp/android/client/component/middle/platform/model/api/user/ImUserBean;"]
       ],
       "methods": [
         ["onResume", "()V"],
         ["onPause", "()V"]
-      ]
-    },
-    {
-      "class": "cn.soulapp.android.component.chat.utils.u0",
-      "methods": [
-        ["k", "(Lcn/soulapp/android/component/chat/fragment/ConversationFragment;Landroid/view/View;Lcn/soulapp/imlib/msg/ImMessage;)Ljava/util/List;"]
-      ]
-    },
-    {
-      "class": "cn.soulapp.android.component.chat.utils.n6",
-      "fields": [
-        ["a", "Lcn/soulapp/android/component/chat/utils/n6;"]
-      ],
-      "methods": [
-        ["g", "(Lcn/soulapp/android/square/post/bean/Post;Ljava/lang/String;)V"],
-        ["h", "(Lcn/soulapp/imlib/msg/ImMessage;)V"]
       ]
     },
     {
@@ -130,16 +107,6 @@
       "fields": [
         ["b", "I"],
         ["d", "Lcn/soulapp/android/component/home/api/user/user/bean/UserFollowCount;"]
-      ]
-    },
-    {
-      "class": "cn.soulapp.android.component.home.databinding.CUsrLayoutRevisionProfileBinding",
-      "fields": [
-        ["o", "Landroid/widget/TextView;"],
-        ["q", "Landroid/widget/TextView;"],
-        ["g0", "Landroid/widget/TextView;"],
-        ["h0", "Landroid/widget/TextView;"],
-        ["V", "Landroid/widget/TextView;"]
       ]
     },
     {
@@ -222,38 +189,83 @@
       "methods": [
         ["A", "()Z"]
       ]
-    },
+    }
+  ],
+  "groups": [
     {
-      "class": "jb.e",
-      "fields": [
-        ["a", "Lfa/a;"],
-        ["b", "Lcn/soulapp/android/ad/core/services/plaforms/listener/SoulAdRequestListener;"],
-        ["e", "Ljava/lang/ref/WeakReference;"]
-      ],
-      "methods": [
-        ["loadAds", "()V"]
-      ]
-    },
-    {
-      "class": "mb.d",
-      "fields": [
-        ["a", "Lfa/a;"],
-        ["c", "Lcn/soulapp/android/ad/core/services/plaforms/listener/SoulAdRequestListener;"],
-        ["b", "Ljava/lang/ref/WeakReference;"]
-      ],
-      "methods": [
-        ["loadAds", "()V"]
-      ]
-    },
-    {
-      "class": "lb.h",
-      "fields": [
-        ["b", "Lfa/a;"],
-        ["c", "Lcn/soulapp/android/ad/core/services/plaforms/listener/SoulAdRewardLoaderListener;"],
-        ["a", "Ljava/lang/ref/WeakReference;"]
-      ],
-      "methods": [
-        ["loadAds", "()V"]
+      "hosts": ["6.38.0/26092202", "6.39.0/26092904"],
+      "contracts": [
+        {
+          "class": "cn.soulapp.imlib.j0",
+          "methods": [
+            ["g", "()Ljava/lang/String;"]
+          ]
+        },
+        {
+          "class": "cn.soulapp.android.component.chat.fragment.ConversationFragment",
+          "fields": [
+            ["Q", "Lcn/soulapp/android/component/chat/utils/y4;"]
+          ]
+        },
+        {
+          "class": "cn.soulapp.android.component.chat.utils.u0",
+          "methods": [
+            ["k", "(Lcn/soulapp/android/component/chat/fragment/ConversationFragment;Landroid/view/View;Lcn/soulapp/imlib/msg/ImMessage;)Ljava/util/List;"]
+          ]
+        },
+        {
+          "class": "cn.soulapp.android.component.chat.utils.n6",
+          "fields": [
+            ["a", "Lcn/soulapp/android/component/chat/utils/n6;"]
+          ],
+          "methods": [
+            ["g", "(Lcn/soulapp/android/square/post/bean/Post;Ljava/lang/String;)V"],
+            ["h", "(Lcn/soulapp/imlib/msg/ImMessage;)V"]
+          ]
+        },
+        {
+          "class": "cn.soulapp.android.component.home.databinding.CUsrLayoutRevisionProfileBinding",
+          "fields": [
+            ["o", "Landroid/widget/TextView;"],
+            ["q", "Landroid/widget/TextView;"],
+            ["g0", "Landroid/widget/TextView;"],
+            ["h0", "Landroid/widget/TextView;"],
+            ["V", "Landroid/widget/TextView;"]
+          ]
+        },
+        {
+          "class": "jb.e",
+          "fields": [
+            ["a", "Lfa/a;"],
+            ["b", "Lcn/soulapp/android/ad/core/services/plaforms/listener/SoulAdRequestListener;"],
+            ["e", "Ljava/lang/ref/WeakReference;"]
+          ],
+          "methods": [
+            ["loadAds", "()V"]
+          ]
+        },
+        {
+          "class": "mb.d",
+          "fields": [
+            ["a", "Lfa/a;"],
+            ["c", "Lcn/soulapp/android/ad/core/services/plaforms/listener/SoulAdRequestListener;"],
+            ["b", "Ljava/lang/ref/WeakReference;"]
+          ],
+          "methods": [
+            ["loadAds", "()V"]
+          ]
+        },
+        {
+          "class": "lb.h",
+          "fields": [
+            ["b", "Lfa/a;"],
+            ["c", "Lcn/soulapp/android/ad/core/services/plaforms/listener/SoulAdRewardLoaderListener;"],
+            ["a", "Ljava/lang/ref/WeakReference;"]
+          ],
+          "methods": [
+            ["loadAds", "()V"]
+          ]
+        }
       ]
     }
   ],
@@ -371,6 +383,202 @@
           ["<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V"],
           ["<init>", "(Ljava/lang/String;Ljava/lang/String;Lokhttp3/m;Ljava/lang/String;)V"],
           ["<init>", "(Ljava/lang/String;Ljava/lang/String;Lokhttp3/m;Ljava/util/Map;)V"]
+        ]
+      }
+    ],
+    "6.43.0/26111706": [
+      {
+        "class": "cn.soulapp.imlib.q0",
+        "methods": [
+          ["g", "()Ljava/lang/String;"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.chat.fragment.ConversationFragment",
+        "fields": [
+          ["R", "Lcn/soulapp/android/component/chat/utils/f5;"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.chat.utils.t0",
+        "methods": [
+          ["k", "(Lcn/soulapp/android/component/chat/fragment/ConversationFragment;Landroid/view/View;Lcn/soulapp/imlib/msg/ImMessage;)Ljava/util/List;"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.chat.utils.u6",
+        "fields": [
+          ["a", "Lcn/soulapp/android/component/chat/utils/u6;"]
+        ],
+        "methods": [
+          ["g", "(Lcn/soulapp/android/square/post/bean/Post;Ljava/lang/String;)V"],
+          ["h", "(Lcn/soulapp/imlib/msg/ImMessage;)V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.home.databinding.CUsrLayoutRevisionProfileBinding",
+        "fields": [
+          ["h0", "Landroid/widget/TextView;"],
+          ["i0", "Landroid/widget/TextView;"],
+          ["W", "Landroid/widget/TextView;"]
+        ]
+      },
+      {
+        "class": "kb.e",
+        "fields": [
+          ["a", "Lfa/a;"],
+          ["b", "Lcn/soulapp/android/ad/core/services/plaforms/listener/SoulAdRequestListener;"],
+          ["e", "Ljava/lang/ref/WeakReference;"]
+        ],
+        "methods": [
+          ["loadAds", "()V"]
+        ]
+      },
+      {
+        "class": "nb.d",
+        "fields": [
+          ["a", "Lfa/a;"],
+          ["c", "Lcn/soulapp/android/ad/core/services/plaforms/listener/SoulAdRequestListener;"],
+          ["b", "Ljava/lang/ref/WeakReference;"]
+        ],
+        "methods": [
+          ["loadAds", "()V"]
+        ]
+      },
+      {
+        "class": "mb.h",
+        "fields": [
+          ["b", "Lfa/a;"],
+          ["c", "Lcn/soulapp/android/ad/core/services/plaforms/listener/SoulAdRewardLoaderListener;"],
+          ["a", "Ljava/lang/ref/WeakReference;"]
+        ],
+        "methods": [
+          ["loadAds", "()V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.home.revision.RevisionProfileProvider",
+        "methods": [
+          ["b2", "(Lcom/soul/component/componentlib/service/user/bean/User;Lcn/soulapp/android/component/home/revision/RevisionProfileProvider$ViewHolder;)V"],
+          ["Z1", "(Lcom/soul/component/componentlib/service/user/bean/User;Lcn/soulapp/android/component/home/revision/RevisionProfileProvider$ViewHolder;)V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.chat.ConversationActivity",
+        "methods": [
+          ["A", "()Landroidx/fragment/app/Fragment;"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.chat.fragment.ConversationFragment",
+        "methods": [
+          ["Tc", "(Landroid/view/View;Lcn/soulapp/imlib/msg/ImMessage;I)V"],
+          ["x9", "()V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.client.component.middle.platform.utils.s1",
+        "methods": [
+          ["e", "(I)Ljava/lang/String;"],
+          ["f", "(I)Ljava/lang/String;"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.square.utils.o2",
+        "methods": [
+          ["b", "(Ljava/lang/String;Landroid/content/Context;JZ)V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.square.utils.ImageDownloader",
+        "methods": [
+          ["p", "(Ljava/lang/String;ZZLcn/soulapp/android/square/utils/ImageMarkProcessor;Lcn/soulapp/android/square/utils/b;)V"]
+        ]
+      },
+      {
+        "class": "ry.w",
+        "methods": [
+          ["d", "()Lry/w;"],
+          ["k", "(Lvy/a;Lcn/soulapp/android/net/winter/api/INetCallBack;)Lokhttp3/Call;"]
+        ]
+      },
+      {
+        "class": "vy.a",
+        "methods": [
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;)V"],
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;JLokhttp3/m;Ljava/util/Map;)V"],
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V"],
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;Lokhttp3/m;Ljava/lang/String;)V"],
+          ["<init>", "(Ljava/lang/String;Ljava/lang/String;Lokhttp3/m;Ljava/util/Map;)V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.imlib.ChatManager",
+        "methods": [
+          ["Q", "()Lcn/soulapp/imlib/ChatManager;"],
+          ["J", "(Ljava/lang/String;)Lcn/soulapp/imlib/Conversation;"],
+          ["O", "(Ljava/lang/String;)Lcn/soulapp/imlib/msg/ImMessage;"],
+          ["S", "(Ljava/util/List;)V"],
+          ["A0", "(Lcn/soulapp/imlib/msg/ImMessage;Z)V"],
+          ["z0", "(Lcn/soulapp/imlib/msg/ImMessage;)V"],
+          ["B0", "(Lcn/soulapp/imlib/msg/ImMessage;)V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.chat.SelectConversationActivity",
+        "methods": [
+          ["H", "(I)V"],
+          ["G", "(Landroid/view/View;)V"],
+          ["U", "()V"],
+          ["F", "(Ljava/lang/Object;)V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.chat.presenter.ConversationListPresenter",
+        "methods": [
+          ["Z2", "(Lcn/soulapp/android/chat/bean/UserConversation;)V"],
+          ["J0", "()Ljava/util/Map;"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.square.main.squarepost.SquareAdapter",
+        "methods": [
+          ["e", "(Lcn/soulapp/android/component/square/main/squarepost/viewholder/BaseSquareViewHolder;Ljava/lang/Object;)V"],
+          ["i", "(Lcn/soulapp/android/component/square/main/squarepost/viewholder/BaseSquareViewHolder;)V"],
+          ["k", "(Lcn/soulapp/android/component/square/main/squarepost/viewholder/BaseSquareViewHolder;)V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.square.SeedsShareDialogFragment",
+        "methods": [
+          ["Q0", "(Lcn/soulapp/android/square/BaseSeedsDialogFragment$Operate;Landroid/view/View;I)Z"],
+          ["s0", "()V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.h5.activity.H5Activity",
+        "methods": [
+          ["k1", "(Z)V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.chat.business.h$a",
+        "methods": [
+          ["a", "(Lcom/soulapp/soulgift/bean/CommonDataBo;)V"]
+        ]
+      },
+      {
+        "class": "cn.soulapp.android.component.chat.aigc.AIGCMultiGuideManager",
+        "methods": [
+          ["s0", "(Lcn/soulapp/imlib/Conversation;Ljava/lang/String;ZLcn/soulapp/android/component/chat/bean/MeetingBean;Ljava/lang/String;IILcn/soulapp/android/component/chat/conversation/b;)Lcn/soulapp/android/component/chat/aigc/c;"]
+        ]
+      },
+      {
+        "class": "wc.e$a",
+        "methods": [
+          ["j", "(Ljava/lang/String;)Z"],
+          ["m", "(Ljava/lang/String;)Lfa/c;"],
+          ["onApplicationForeground", "()V"]
         ]
       }
     ]

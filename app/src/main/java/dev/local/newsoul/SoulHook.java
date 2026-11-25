@@ -117,14 +117,7 @@ public final class SoulHook extends XposedModule {
 
     private void installSettingsHook(ClassLoader loader) {
         try {
-            Class<?> h5 = loader.loadClass("cn.soulapp.android.h5.activity.H5Activity");
-            // Verified in Soul 6.35.0: private m1(boolean) configures its WebView
-            // clients and loads the H5 URL. This is Soul's own private method.
-            boolean legacy = HostBindings.legacyChat(loader);
-            Method loadPage = legacy ? h5.getDeclaredMethod("onResume") : h5.getDeclaredMethod("m1", boolean.class);
-            if (!legacy && !java.lang.reflect.Modifier.isPrivate(loadPage.getModifiers())) {
-                throw new IllegalStateException("Unexpected H5Activity.m1 signature");
-            }
+            Method loadPage = HostBindings.settingsPageLoader(loader, HostBindings.legacyChat(loader));
             hook(loadPage).setId("soul-demo/private-h5-m1")
                     .setExceptionMode(XposedInterface.ExceptionMode.PROTECTIVE)
                     .intercept(chain -> {
@@ -135,10 +128,10 @@ public final class SoulHook extends XposedModule {
                                 SettingsUi.observeSettingsPage(activity);
                             }
                         });
-                        info("private hook hit: H5Activity.m1(boolean)");
+                        info("private hook hit: H5Activity." + loadPage.getName());
                         return result;
                     });
-            info("private hook installed: H5Activity.m1(boolean)");
+            info("private hook installed: H5Activity." + loadPage.getName());
             settingsHookReady = true;
         } catch (Throwable error) {
             Log.e(TAG, "Soul settings hook unavailable; check app version", error);
